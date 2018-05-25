@@ -3,8 +3,8 @@
 /* Definição da lusta de indices principais e inversas. */
 typedef struct no_prim_inv{
 	int NRR;
-	char chave[31];
-	struct no_prim_inv* prox;
+	char* chave;
+	struct no_prim_inv* proximo;
 	struct no_prim_inv* anterior;
 }NoIP;
 
