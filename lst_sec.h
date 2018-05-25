@@ -20,3 +20,12 @@ void IniciaLstIndSec(LstIndSec* lista);
 
 /* Adiciona um novo nó à lista de índices secundários */
 NoSec* AddNoSec(NoSec* anterior, char chave[]);
+
+/* Função que remove um nó do arquivo de índices secundários */
+void RemoveNoSec(NoSec* no);
+
+/* Função que procura índices secundários vazios e os elimina */
+void ProcuraIndSecVazio(LstIndSec *lista);
+
+/* Função que libera a lista de índices secundários */
+void LiberaLstIndSec(LstIndSec* lista);

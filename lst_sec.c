@@ -39,5 +39,22 @@ void ProcuraIndSecVazio(LstIndSec *lista){
 	aux = aux->proximo;
       }
     } /* while */
-  }   /* if(aux...) */
-}     /* ProcuraIndSecVazio */
+  } /* if(aux...) */
+} /* ProcuraIndSecVazio */
+
+void LiberaLstIndSec(LstIndSec* lista){
+  NoSec* aux = lista->cabeca;
+  if(aux == NULL){
+    return NULL;
+  }
+
+  NoSec* aux2 = lista->cabeca->proximo;
+  while(aux->proximo != NULL){
+    free(aux);
+    aux = aux2;
+    if(aux2->proximo != NULL){
+      aux2 = aux2->proximo;
+    }
+  } /* while(aux->proximo != NULL) */
+  free(aux);
+} /* LiberaLstIndSec */
