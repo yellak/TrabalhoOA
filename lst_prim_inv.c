@@ -14,6 +14,7 @@ void IniciarLstIP(LstIP *lista){
 NoIP* AddLstIP(NoIP* pai, char* chave, int NRR){
 	NoIP* no = (NoIP*) malloc (sizeof(NoIP));
 	no->NRR = NRR;
+	no->chave = (char*) malloc(sizeof(char)*31);
 	strcpy(no->chave, chave);
 	no->anterior = pai;
 	no->proximo = NULL;
