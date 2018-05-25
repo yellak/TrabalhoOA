@@ -6,9 +6,8 @@
 #include <string.h>
 
 void IniciarLstIP(LstIP *lista){
-	lista->cabeca = (NoIP*) malloc(sizeof(NoIP));
-	lista->cabeca->proximo = NULL;
-	lista->cabeca->anterior = NULL;
+	lista = (LstIP*) malloc(sizeof(LstIP));
+	lista->cabeca = NULL;
 }
 
 NoIP* AddLstIP(NoIP* pai, char* chave, int NRR){
@@ -19,6 +18,15 @@ NoIP* AddLstIP(NoIP* pai, char* chave, int NRR){
 	no->anterior = pai;
 	no->proximo = NULL;
 	return no;
+}
+
+void RemoverNoLstIP(NoIP* no){
+	NoIP* pai = no->anterior;
+	NoIP* filho = no->proximo;
+	filho->anterior = pai;
+	pai->proximo = filho;
+	free(no->chave);
+	free(no);
 }
 
 int VerVaziaLstIP(LstIP *lista){

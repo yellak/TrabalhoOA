@@ -18,3 +18,9 @@ void IniciarLstIP(LstIP *lista);
 
 /* Adicionar nó na lista. */
 NoIP* AddLstIP(NoIP* pai, char* chave, int NRR);
+
+/* Remover nó da lista. */
+void RemoverNoLstIP(NoIP* no);
+
+/* Verificar se a lista está vazia. */
+int VerVaziaLstIP(LstIP *lista);
