@@ -1,6 +1,10 @@
 /* Modulo: Entrada e Saida - Implementação */
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+#include "lst_prim_inv.h"
+#include "lst_sec.h"
+#include "EntradaeSaida.h"
 
 char* Concatena(char nome[], char matricula[]){
 	char* concatenado = (char*) malloc(sizeof(char)*31);
@@ -20,4 +24,91 @@ char* Concatena(char nome[], char matricula[]){
 	concatenado[31] = '\0';
 	
 	return concatenado;
+}
+
+void LerRegistro(TipoReg *registro, FILE *fp){
+	int aux;
+
+	/* Ler matricula. */
+	for(aux = 0; aux < 7; aux++){
+		registro->matricula[aux] = fgetc(fp);
+	}
+	registro->matricula[7] = '\0';
+	fgetc(fp); /* Pegar espaço. */
+
+	/* Ler nome. */
+	for(aux = 0; aux < 41; aux++){
+		registro->nome[aux] = fgetc(fp);
+	}
+	registro->nome[41] = '\0';
+	/* Pegar espaçoes. */
+	for(aux = 0; aux < 5; aux++){
+		fgetc(fp);
+	}
+
+	/* Ler curso. */
+	for(aux = 0; aux < 9; aux++){
+		registro->curso[aux] = fgetc(fp);
+	}
+	/* Pegar espaços e '\n'. */
+	for(aux = 0; aux < 3; aux++){
+		fgetc(fp);
+	}
+}
+
+void LerLista(int conjunto_dados, LstIP* primaria, LstIndSec* secundaria){
+	/* Verificar validade da váriavel 'conjunto_dados'. */ 
+	while(conjunto_dados != 1 || conjunto_dados != 2){
+		printf("Digite '1' para trabalhar com o conjunto de dados da lista 1 ou '2' para o conjunto da lista 2.\n");
+		scanf("%d", &conjunto_dados);
+	}
+
+	/* Definir nome do arquivo a ser aberto. */
+	char nome_arq[11];
+	if(conjunto_dados == 1){
+		strcpy(nome_arq, "lista1.txt");
+	}
+	else if(conjunto_dados == 2){
+		strcpy(nome_arq, "lista2.txt");
+	}
+
+	/* Abrir arquivo */
+	FILE *fp;
+	fp = fopen(nome_arq, "r");
+
+	/* Alocar espcaço para as string do registro. */
+	TipoReg registro;
+	registro.matricula = (char*) malloc(sizeof(char)*7);
+	registro.curso = (char*) malloc(sizeof(char)*9);
+	registro.nome = (char*) malloc(sizeof(char)*41);
+
+	/* Ler registros. */
+	NoIP *atual_prim = primaria->cabeca;
+	NoIP *pai_prim = NULL;
+	NoSec *atual_sec = secundaria->cabeca;
+	NoSec *pai_sec= NULL;
+	char *concatenado;
+	int NRR = 0;
+
+	while(!feof(fp)){
+		LerRegistro(&registro, fp);
+		concatenado = Concatena(registro.matricula, registro.nome);
+
+		atual_prim = AddLstIP(pai_prim, concatenado, NRR);
+		pai_prim = atual_prim;
+		atual_prim = pai_prim->proximo;
+		if(!CursoExiste()){
+			atual_sec = AddNoSec(pai_sec, registro.curso);
+			pai_sec = atual_sec;
+			atual_sec = pai_sec->proximo;
+		}
+		InserirListaInvertida();
+
+		free(concatenado);
+	}
+
+	/* Liberar registro. */
+	free(registro.matricula);
+	free(registro.nome);
+	free(registro.curso);
 }

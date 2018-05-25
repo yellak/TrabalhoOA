@@ -1,5 +1,8 @@
 /* TAD: Lista de Indices Principais e Inversas */
 
+#ifndef LST_PRIM_INV_H_
+#define LST_PRIM_INV_H_
+
 /* Definição da lusta de indices principais e inversas. */
 typedef struct no_prim_inv{
 	int NRR;
@@ -14,7 +17,7 @@ typedef struct lst_prim_inv{
 
 /* Implementação das funções. */
 /* Função que inicializa a lista. */
-void IniciarLstIP(LstIP *lista);
+LstIP* IniciarLstIP(void);
 
 /* Adicionar nó na lista. */
 NoIP* AddLstIP(NoIP* pai, char* chave, int NRR);
@@ -30,3 +33,5 @@ void LiberaLstIP(LstIP *lista);
 
 /* Verificar se a lista está vazia. */
 int VerVaziaLstIP(LstIP *lista);
+
+#endif

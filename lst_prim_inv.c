@@ -5,9 +5,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-void IniciarLstIP(LstIP *lista){
-	lista = (LstIP*) malloc(sizeof(LstIP));
+LstIP* IniciarLstIP(void){
+	LstIP *lista = lista = (LstIP*) malloc(sizeof(LstIP));
 	lista->cabeca = NULL;
+	return lista;
 }
 
 NoIP* AddLstIP(NoIP* pai, char* chave, int NRR){
