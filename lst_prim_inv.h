@@ -9,7 +9,12 @@ typedef struct no_prim_inv{
 }NoIP;
 
 typedef struct lst_prim_inv{
-	NoIP* Cabeca;
-}lstIP;
+	NoIP* cabeca;
+}LstIP;
 
 /* Implementação das funções. */
+/* Função que inicializa a lista. */
+void IniciarLstIP(LstIP *lista);
+
+/* Adicionar nó na lista. */
+NoIP* AddLstIP(NoIP* pai, char* chave, int NRR);
