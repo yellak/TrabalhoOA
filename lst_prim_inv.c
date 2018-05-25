@@ -15,8 +15,8 @@ NoIP* AddLstIP(NoIP* pai, char* chave, int NRR){
 	no->NRR = NRR;
 	no->chave = (char*) malloc(sizeof(char)*31);
 	strcpy(no->chave, chave);
-	no->anterior = pai;
 	no->proximo = NULL;
+	no->anterior = pai;
 	return no;
 }
 
@@ -29,10 +29,30 @@ void RemoverNoLstIP(NoIP* no){
 	free(no);
 }
 
+void EliminarNosLstIP(NoIP* no){
+	/* Condição de parada. */
+	if(no == NULL){
+		return;
+	}
+
+	EliminarNosLstIP(no->proximo);
+	RemoverNoLstIP(no);
+}
+
+void LiberaLstIP(LstIP *lista){
+	NoIP* no = lista->cabeca;
+	if(no == NULL){
+		return;
+	}
+
+	RemoverNoLstIP(no);
+}
+
 int VerVaziaLstIP(LstIP *lista){
 	if(lista->cabeca->proximo == NULL){
 		return 1;
 	}
-	else 
+	else {
 		return 0;
+	}
 }
