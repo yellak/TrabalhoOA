@@ -1,5 +1,8 @@
+/* TAD: Lista de índices secundários - Implementação */
+
 #include "lst_sec.h"
 #include <stdlib.h>
+#include <string.h>
 
 LstIndSec* IniciaLstIndSec(void){
   LstIndSec* lista;
@@ -10,6 +13,7 @@ LstIndSec* IniciaLstIndSec(void){
 
 NoSec* AddNoSec(NoSec* anterior, char chave[]){
   NoSec* novo_no = malloc(sizeof(NoSec));
+  strcpy(novo_no->chave, chave);
   novo_no->anterior = anterior;
   novo_no->proximo = NULL;
   IniciarLstIP(novo_no->lista_invertida);
