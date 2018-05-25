@@ -1,11 +1,11 @@
 #include "lst_sec.h"
 #include <stdlib.h>
 
-void IniciaLstIndSec(LstIndSec* lista){
-  if(lista == NULL){
-      lista = (LstIndSec*) malloc(sizeof(LstIndSec));
-      lista->cabeca = NULL;
-  }
+LstIndSec* IniciaLstIndSec(void){
+  LstIndSec* lista;
+  lista = (LstIndSec*) malloc(sizeof(LstIndSec));
+  lista->cabeca = NULL;
+  return lista;
 } /* IniciaLstSec */
 
 NoSec* AddNoSec(NoSec* anterior, char chave[]){
