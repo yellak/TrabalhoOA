@@ -5,6 +5,7 @@ typedef struct no_prim_inv{
 	int NRR;
 	char chave[31];
 	struct no_prim_inv* prox;
+	struct no_prim_inv* anterior;
 }NoIP;
 
 typedef struct lst_prim_inv{
