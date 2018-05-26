@@ -29,3 +29,6 @@ void ProcuraIndSecVazio(LstIndSec *lista);
 
 /* Função que libera a lista de índices secundários */
 void LiberaLstIndSec(LstIndSec* lista);
+
+/* Função que verifica se um certo curso já existe na lista de cursos */
+int CursoExiste(LstIndSec* lista, char curso[]);

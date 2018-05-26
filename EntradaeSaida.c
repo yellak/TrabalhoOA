@@ -102,7 +102,7 @@ void LerLista(int conjunto_dados, LstIP* primaria, LstIndSec* secundaria){
 			pai_sec = atual_sec;
 			atual_sec = pai_sec->proximo;
 		}
-		InserirListaInvertida();
+		InserirListaInvertida(secundaria, registro.curso, char ch_prim[], NRR, conjunto_dados);
 		NRR += 62;
 		free(concatenado);
 	}

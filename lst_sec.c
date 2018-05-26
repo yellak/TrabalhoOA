@@ -19,7 +19,7 @@ NoSec* AddNoSec(NoSec* anterior, char chave[]){
   IniciarLstIP(novo_no->lista_invertida);
 } /* AddNoSec */
 
-void RemoveNoSec(NoSec* no){
+void RemoveNoSecp(NoSec* no){
   if(no->anterior != NULL){
     no->anterior->proximo = no->proximo;
   }
@@ -54,6 +54,9 @@ void LiberaLstIndSec(LstIndSec* lista){
 
   NoSec* aux2 = lista->cabeca->proximo;
   while(aux->proximo != NULL){
+    if(aux->lista_invertida != NULL){
+      free(aux->lista_invertida);
+    }
     free(aux);
     aux = aux2;
     if(aux2->proximo != NULL){
@@ -70,6 +73,45 @@ int CursoExiste(LstIndSec* lista, char curso[]){
       return 1;
     }
   } /* while */
-
   return 0;
 }
+
+void InserirListaInvertida(LstIndSec* secundaria, char curso[], char ch_prim[], int NRR, int cj_dados){
+  NoSec *aux = secundaria->cabeca;
+  NoSec *aux2;
+  int achou = 0;
+
+  char arquivo[13];
+  if(cj_dados == 1){
+    strcpy(arquivo, "lst_inv1.txt");
+  }
+  else{
+    strcpy(arquivo, "lst_inv2.txt");
+  }
+
+  FILE* fp = fopen(arquivo, "a");
+  /* Procurando o curso na lista */
+  while(aux->proximo != NULL && !achou){
+    if(strmp(aux->chave, curso)){
+      achou = 1;
+    }
+    else{
+      aux = aux->proximo;
+    }
+  } /* while */
+
+  if(achou){
+    aux_lst_inv = aux->lista_invertida->cabeca;
+    if(aux_lst_inv != NULL){
+      /* Indo para o final da lista */
+      while(aux_lst_inv->proximo != NULL){
+	aux_lst_inv = aux_lst_inv->proximo;
+      }
+    }
+    aux_lst_inv->proximo = AddLstIP(aux_lst_inv, chave_primaria, NRR);
+    fprintf(fp, "%s %3d\n", ch_prim, NRR);
+  }
+  else{
+    return NULL;  /* Problema, curso deveria está na lista */
+  }
+} /* InserirListaInvertida */
