@@ -18,5 +18,7 @@ int main(){
   LiberaLstIndSec(secundaria);
   LiberaLstIP(primaria);
 
+  fclose(arq);
+
   return 0;
 }

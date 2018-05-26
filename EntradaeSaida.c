@@ -30,17 +30,17 @@ void LerRegistro(TipoReg *registro, FILE *fp){
 	int aux;
 
 	/* Ler matricula. */
-	for(aux = 0; aux < 7; aux++){
+	for(aux = 0; aux < 6; aux++){
 		registro->matricula[aux] = fgetc(fp);
 	}
-	registro->matricula[7] = '\0';
+	registro->matricula[6] = '\0';
 	fgetc(fp); /* Pegar espaço. */
 
 	/* Ler nome. */
-	for(aux = 0; aux < 41; aux++){
+	for(aux = 0; aux < 40; aux++){
 		registro->nome[aux] = fgetc(fp);
 	}
-	registro->nome[41] = '\0';
+	registro->nome[40] = '\0';
 	/* Pegar espaçoes. */
 	for(aux = 0; aux < 5; aux++){
 		fgetc(fp);
