@@ -57,3 +57,30 @@ int VerVaziaLstIP(LstIP *lista){
 		return 0;
 	}
 }
+
+void TrocaChavesLstIP(NoIP *maior, NoIP *menor){
+	char *chave_aux;
+	int NRR_aux;
+
+	NRR_aux = maior->NRR;
+	chave_aux = maior->chave;
+	maior->NRR = menor->NRR;
+	maior->chave = menor->chave;
+	menor->NRR = NRR_aux;
+	menor->chave = chave_aux;
+}
+
+void OrdenarLstIP(LstIP *lista){
+	NoIP *atual;
+	int troca = 1;
+
+	while(troca != 0){
+		troca = 0;
+		for(atual = lista->cabeca; atual != NULL; atual = atual->proximo){
+			if(strcmp(atual->chave, atual->proximo->chave) > 0){
+				TrocaChavesLstIP(atual, atual->proximo);
+				troca = 1;
+			}
+		}
+	}
+}
