@@ -86,7 +86,6 @@ void LerLista(int conjunto_dados, LstIP* primaria, LstIndSec* secundaria){
 	NoIP *atual_prim = primaria->cabeca;
 	NoIP *pai_prim = NULL;
 	NoSec *atual_sec;
-	NoSec *pai_sec= NULL;
 	char *concatenado;
 	int NRR = 0;
 
