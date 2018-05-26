@@ -108,9 +108,6 @@ void LerLista(int conjunto_dados, LstIP* primaria, LstIndSec* secundaria){
 			if(pai_sec == NULL){
 				secundaria->cabeca = atual_sec;
 			}
-			else{
-				pai_sec->proximo = atual_sec;
-			}
 			pai_sec = atual_sec;
 			atual_sec = pai_sec->proximo;
 		}
