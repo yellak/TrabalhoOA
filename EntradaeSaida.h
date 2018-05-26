@@ -29,4 +29,7 @@ void EscreveListaPrim(FILE *arq, LstIP *lista);
 /* Escreve a lista secundária dentro o arquivo de saída */
 void EscreveListaSec(FILE* arquivo, LstIndSec* lista);
 
+/* Organiza os ponteiros da lista secundária e da inversa. */
+void OrganizarPonteirosListas(int conjunto_dados, LstIndSec *lista);
+
 #endif

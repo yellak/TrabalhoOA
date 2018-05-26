@@ -21,6 +21,7 @@ int main(){
   LstIP* prim_2 = IniciarLstIP();
   LstIndSec* sec_2 = IniciaLstIndSec();
   LerLista(2, prim_2, sec_2);
+  OrganizarPonteirosListas(1, secundaria);
 
   OrdenarLstIP(prim_2);
   OrdenarLstIP(primaria);
