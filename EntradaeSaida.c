@@ -132,7 +132,6 @@ void LerLista(int conjunto_dados, LstIP* primaria, LstIndSec* secundaria){
 
 void EscreveListaPrim(FILE *arq, LstIP *lista){
 	NoIP* aux;
-	fprintf(arq, "Indice                         NRR\n");
 	for(aux = lista->cabeca; aux != NULL; aux = aux->proximo){
 		fprintf(arq, "%s %3d\n", aux->chave, aux->NRR);
 	}
