@@ -98,6 +98,9 @@ void LerLista(int conjunto_dados, LstIP* primaria, LstIndSec* secundaria){
 		if(pai_prim == NULL){
 			primaria->cabeca = atual_prim;
 		}
+		else{
+			pai_prim->proximo = atual_prim;
+		}
 		pai_prim = atual_prim;
 		atual_prim = pai_prim->proximo;
 		if(!CursoExiste(secundaria, registro.curso)){
