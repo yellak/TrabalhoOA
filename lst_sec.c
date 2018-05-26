@@ -12,7 +12,7 @@ LstIndSec* IniciaLstIndSec(void){
 } /* IniciaLstSec */
 
 NoSec* AddNoSec(NoSec* anterior, char chave[]){
-  NoSec* novo_no = malloc(sizeof(NoSec));
+  NoSec* novo_no = (NoSec*) malloc(sizeof(NoSec));
   strcpy(novo_no->chave, chave);
   novo_no->anterior = anterior;
   novo_no->proximo = NULL;

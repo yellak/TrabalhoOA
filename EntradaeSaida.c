@@ -85,7 +85,7 @@ void LerLista(int conjunto_dados, LstIP* primaria, LstIndSec* secundaria){
 	/* Ler registros. */
 	NoIP *atual_prim = primaria->cabeca;
 	NoIP *pai_prim = NULL;
-	NoSec *atual_sec = secundaria->cabeca;
+	NoSec *atual_sec;
 	NoSec *pai_sec= NULL;
 	char *concatenado;
 	int NRR = 0;
@@ -104,12 +104,14 @@ void LerLista(int conjunto_dados, LstIP* primaria, LstIndSec* secundaria){
 		pai_prim = atual_prim;
 		atual_prim = pai_prim->proximo;
 		if(!CursoExiste(secundaria, registro.curso)){
-			atual_sec = AddNoSec(pai_sec, registro.curso);
-			if(pai_sec == NULL){
-				secundaria->cabeca = atual_sec;
+		        if(secundaria->cabeca == NULL){
+		                secundaria->cabeca = AddNoSec(NULL, registro.curso);
+				atual_sec = secundaria->cabeca;
+		        }
+			else{
+			        atual_sec->proximo = AddNoSec(atual_sec, registro.curso);
+				atual_sec = atual_sec->proximo;
 			}
-			pai_sec = atual_sec;
-			atual_sec = pai_sec->proximo;
 		}
 		InserirListaInvertida(secundaria, registro.curso, concatenado, NRR, conjunto_dados);
 		NRR++;
