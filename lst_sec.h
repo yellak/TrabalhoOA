@@ -16,7 +16,7 @@ typedef struct lstindsec {
 } LstIndSec;
 
 /* Função que incializa uma nova lista */
-void IniciaLstIndSec(LstIndSec* lista);
+LstIndSec* IniciaLstIndSec(void);
 
 /* Adiciona um novo nó à lista de índices secundários */
 NoSec* AddNoSec(NoSec* anterior, char chave[]);
@@ -32,3 +32,6 @@ void LiberaLstIndSec(LstIndSec* lista);
 
 /* Função que verifica se um certo curso já existe na lista de cursos */
 int CursoExiste(LstIndSec* lista, char curso[]);
+
+/* Função que insere o registro na lista invertida adequada. */
+void InserirListaInvertida(LstIndSec* secundaria, char curso[], char ch_prim[], int NRR, int cj_dados);

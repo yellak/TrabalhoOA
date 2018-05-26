@@ -107,8 +107,8 @@ void MergeListas(LstIP *lista1, LstIP *lista2){
 	/* Abrir arquivos. */
 	FILE *arq1, *arq2, *saida;
 	arq1 = fopen("lista1.txt", "r");
-	arq1 = fopen("lista2.txt", "r");
-	arq1 = fopen("lista11.txt", "w+");
+	arq2 = fopen("lista2.txt", "r");
+	saida = fopen("lista11.txt", "w+");
 	
 	/* Definir inicio da chave */
 	char *chave1 = lista1->cabeca->chave;

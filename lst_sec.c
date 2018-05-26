@@ -1,5 +1,8 @@
 /* TAD: Lista de índices secundários - Implementação */
 
+#ifndef LST_SEC_H_
+#define LST_SEC_H_
+
 #include "lst_sec.h"
 #include <stdlib.h>
 #include <string.h>
@@ -16,7 +19,9 @@ NoSec* AddNoSec(NoSec* anterior, char chave[]){
   strcpy(novo_no->chave, chave);
   novo_no->anterior = anterior;
   novo_no->proximo = NULL;
-  IniciarLstIP(novo_no->lista_invertida);
+  novo_no->lista_invertida = IniciarLstIP();
+
+  return novo_no;
 } /* AddNoSec */
 
 void RemoveNoSecp(NoSec* no){
@@ -49,7 +54,7 @@ void ProcuraIndSecVazio(LstIndSec *lista){
 void LiberaLstIndSec(LstIndSec* lista){
   NoSec* aux = lista->cabeca;
   if(aux == NULL){
-    return NULL;
+    return;
   }
 
   NoSec* aux2 = lista->cabeca->proximo;
@@ -78,7 +83,7 @@ int CursoExiste(LstIndSec* lista, char curso[]){
 
 void InserirListaInvertida(LstIndSec* secundaria, char curso[], char ch_prim[], int NRR, int cj_dados){
   NoSec *aux = secundaria->cabeca;
-  NoSec *aux2;
+  NoIP *aux_lst_inv;
   int achou = 0;
 
   char arquivo[13];
@@ -92,7 +97,7 @@ void InserirListaInvertida(LstIndSec* secundaria, char curso[], char ch_prim[], 
   FILE* fp = fopen(arquivo, "a");
   /* Procurando o curso na lista */
   while(aux->proximo != NULL && !achou){
-    if(strmp(aux->chave, curso)){
+    if(!strcmp(aux->chave, curso)){
       achou = 1;
     }
     else{
@@ -108,10 +113,12 @@ void InserirListaInvertida(LstIndSec* secundaria, char curso[], char ch_prim[], 
 	aux_lst_inv = aux_lst_inv->proximo;
       }
     }
-    aux_lst_inv->proximo = AddLstIP(aux_lst_inv, chave_primaria, NRR);
+    aux_lst_inv->proximo = AddLstIP(aux_lst_inv, ch_prim, NRR);
     fprintf(fp, "%s %3d\n", ch_prim, NRR);
   }
   else{
-    return NULL;  /* Problema, curso deveria está na lista */
+    return;  /* Problema, curso deveria está na lista */
   }
 } /* InserirListaInvertida */
+
+#endif
