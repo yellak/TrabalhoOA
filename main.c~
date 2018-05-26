@@ -1,9 +1,0 @@
-#include <stdio.h>
-#include "lst_sec.h"
-#include "lst_prim_inv.h"
-#include "EntradaeSaida.h"
-
-int main(){
-
-  LstI* primaria = IniciarLstIP();
-  LstIndSec* secundaria = IniciaLstIndSec();
