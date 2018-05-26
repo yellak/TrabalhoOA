@@ -95,10 +95,16 @@ void LerLista(int conjunto_dados, LstIP* primaria, LstIndSec* secundaria){
 		concatenado = Concatena(registro.matricula, registro.nome);
 
 		atual_prim = AddLstIP(pai_prim, concatenado, NRR);
+		if(pai_prim == NULL){
+			primaria->cabeca = atual_prim;
+		}
 		pai_prim = atual_prim;
 		atual_prim = pai_prim->proximo;
-		if(!CursoExiste(secundaria, atual_sec->chave)){
+		if(!CursoExiste(secundaria, registro.curso)){
 			atual_sec = AddNoSec(pai_sec, registro.curso);
+			if(pai_sec == NULL){
+				secundaria->cabeca = atual_sec;
+			}
 			pai_sec = atual_sec;
 			atual_sec = pai_sec->proximo;
 		}

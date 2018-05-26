@@ -22,10 +22,12 @@ NoIP* AddLstIP(NoIP* pai, char* chave, int NRR){
 }
 
 void RemoverNoLstIP(NoIP* no){
-	NoIP* pai = no->anterior;
-	NoIP* filho = no->proximo;
-	filho->anterior = pai;
-	pai->proximo = filho;
+	if(no->anterior != NULL){
+    	no->anterior->proximo = no->proximo;
+ 	}
+ 	if(no->proximo != NULL){
+  		no->proximo->anterior = no->anterior;
+  	}
 	free(no->chave);
 	free(no);
 }
