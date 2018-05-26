@@ -49,6 +49,7 @@ void LiberaLstIP(LstIP *lista){
 	}
 
 	RemoverNoLstIP(no);
+	free(lista);
 }
 
 int VerVaziaLstIP(LstIP *lista){

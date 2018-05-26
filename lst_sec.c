@@ -66,6 +66,7 @@ void LiberaLstIndSec(LstIndSec* lista){
     }
   } /* while(aux->proximo != NULL) */
   free(aux);
+  free(lista);
 } /* LiberaLstIndSec */
 
 int CursoExiste(LstIndSec* lista, char curso[]){
