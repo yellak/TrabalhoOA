@@ -67,9 +67,11 @@ void LerLista(int conjunto_dados, LstIP* primaria, LstIndSec* secundaria){
 	char nome_arq[11];
 	if(conjunto_dados == 1){
 		strcpy(nome_arq, "lista1.txt");
+		remove("lst_inv1.txt");
 	}
 	else if(conjunto_dados == 2){
 		strcpy(nome_arq, "lista2.txt");
+		remove("lst_inv2.txt");
 	}
 
 	/* Abrir arquivo */
