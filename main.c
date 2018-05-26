@@ -9,7 +9,7 @@ int main(){
   LstIP* primaria = IniciarLstIP();
   LstIndSec* secundaria = IniciaLstIndSec();
 
-  LerLista(conjunto_dados, primaria, secundaria);
+  LerLista(1, primaria, secundaria);
 
   char arquivosec[] = "indsec1.ind";
   char arquivoprim[] = "indprim1.ind";

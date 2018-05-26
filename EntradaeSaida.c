@@ -90,10 +90,11 @@ void LerLista(int conjunto_dados, LstIP* primaria, LstIndSec* secundaria){
 	NoSec *atual_sec;
 	char *concatenado;
 	int NRR = 0;
+	int long temp = ftell(fp);
 
-	while(1){
+	while(!feof(fp)){
+		fseek(fp, temp, SEEK_SET);
 		LerRegistro(&registro, fp);
-		if(registro.nome[0] == '\377') break;
 		concatenado = Concatena(registro.nome, registro.matricula);
 
 		atual_prim = AddLstIP(pai_prim, concatenado, NRR);
@@ -118,7 +119,8 @@ void LerLista(int conjunto_dados, LstIP* primaria, LstIndSec* secundaria){
 		InserirListaInvertida(secundaria, registro.curso, concatenado, NRR, conjunto_dados);
 		NRR++;
 		free(concatenado);
-		if(feof(fp)) break;
+		temp = ftell(fp);
+		fgetc(fp);
 	}
 
 	/* Liberar registro. */
