@@ -134,7 +134,7 @@ void EscreveListaPrim(FILE *arq, LstIP *lista){
 void EscreveListaSec(FILE* arquivo, LstIndSec* lista){
   NoSec* aux = lista->cabeca;
   int NRR = 0;
-  while(aux->proximo != NULL){
+  while(aux != NULL){
     fprintf(arquivo, "%s %3d\n", aux->chave, NRR);
     NRR += 13;
     aux = aux->proximo;
