@@ -3,6 +3,8 @@
 #ifndef LST_PRIM_INV_H_
 #define LST_PRIM_INV_H_
 
+#include <stdio.h>
+
 /* Definição da lusta de indices principais e inversas. */
 typedef struct no_prim_inv{
 	int NRR;
@@ -39,5 +41,8 @@ void TrocaChavesLstIP(NoIP *maior, NoIP *menor);
 
 /* Ordenar a lista. */
 void OrdenarLstIP(LstIP *lista);
+
+/* Escreve registro no arquivo de saída. */
+void EscreveSaida(int NRR, FILE *arq, FILE *saida);
 
 #endif
