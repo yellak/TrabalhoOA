@@ -121,4 +121,37 @@ void InserirListaInvertida(LstIndSec* secundaria, char curso[], char ch_prim[], 
   }
 } /* InserirListaInvertida */
 
+
+void TrocaChavesLstSec(NoSec *maior, NoSec *menor){
+	char chave_aux[9];
+	LstIP *lst_aux;
+
+	lst_aux = maior->lista_invertida;
+	strcpy(chave_aux, maior->chave);
+	maior->lista_invertida = menor->lista_invertida;
+	strcpy(maior->chave, menor->chave);
+	menor->lista_invertida = lst_aux;
+	strcpy(menor->chave, chave_aux);
+}
+
+void OrdenarLstSec(LstIndSec *lista){
+	NoSec *atual;
+	int troca = 1;
+	/* Ordenar elementos da lista secundaria. */
+	while(troca != 0){
+		troca = 0;
+		for(atual = lista->cabeca; atual != NULL; atual = atual->proximo){
+			if(strcmp(atual->chave, atual->proximo->chave) > 0){
+				TrocaChavesLstSec(atual, atual->proximo);
+				troca = 1;
+			}
+		}
+	}
+
+	/* Ordenar elementos das listas inversas */
+	for(atual = lista->cabeca; atual != NULL; atual = atual->proximo){
+		OrdenarLstIP(atual->lista_invertida);
+	}
+}
+
 #endif

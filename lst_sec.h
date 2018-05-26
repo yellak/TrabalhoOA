@@ -35,3 +35,9 @@ int CursoExiste(LstIndSec* lista, char curso[]);
 
 /* Função que insere o registro na lista invertida adequada. */
 void InserirListaInvertida(LstIndSec* secundaria, char curso[], char ch_prim[], int NRR, int cj_dados);
+
+/* Função que troca chaves de dois nós da lista secundaria. */
+void TrocaChavesLstSec(NoSec *maior, NoSec *menor);
+
+/* Função que ordena a lista secundaria e suas listas invertidas. */
+void OrdenarLstSec(LstIndSec *lista);
