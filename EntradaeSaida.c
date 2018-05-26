@@ -16,12 +16,12 @@ char* Concatena(char nome[], char matricula[]){
 	}
 	/* Concatenar com o nome */
 	index = 0;
-	for(aux = 6; aux < 31; aux++){
+	for(aux = 6; aux < 30; aux++){
 		concatenado[aux] = nome[index];
 		index++;
 	}
 	/* Adicionar '\0' */
-	concatenado[31] = '\0';
+	concatenado[30] = '\0';
 	
 	return concatenado;
 }
@@ -76,7 +76,7 @@ void LerLista(int conjunto_dados, LstIP* primaria, LstIndSec* secundaria){
 	FILE *fp;
 	fp = fopen(nome_arq, "r");
 
-	/* Alocar espcaço para as string do registro. */
+	/* Alocar espaço para as string do registro. */
 	TipoReg registro;
 	registro.matricula = (char*) malloc(sizeof(char)*7);
 	registro.curso = (char*) malloc(sizeof(char)*9);
@@ -97,13 +97,13 @@ void LerLista(int conjunto_dados, LstIP* primaria, LstIndSec* secundaria){
 		atual_prim = AddLstIP(pai_prim, concatenado, NRR);
 		pai_prim = atual_prim;
 		atual_prim = pai_prim->proximo;
-		if(!CursoExiste()){
+		if(!CursoExiste(secundaria, atual_sec->chave)){
 			atual_sec = AddNoSec(pai_sec, registro.curso);
 			pai_sec = atual_sec;
 			atual_sec = pai_sec->proximo;
 		}
 		InserirListaInvertida();
-
+		NRR += 62;
 		free(concatenado);
 	}
 
