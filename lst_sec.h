@@ -1,5 +1,8 @@
 /* TAD: Lista de índices secundários */
 
+#ifndef LST_SEC_H_
+#define LST_SEC_H_
+
 #include "lst_prim_inv.h"
 
 /* Definição do tipo nó de uma lista secundária */
@@ -41,3 +44,5 @@ void TrocaChavesLstSec(NoSec *maior, NoSec *menor);
 
 /* Função que ordena a lista secundaria e suas listas invertidas. */
 void OrdenarLstSec(LstIndSec *lista);
+
+#endif

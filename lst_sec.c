@@ -1,8 +1,5 @@
 /* TAD: Lista de índices secundários - Implementação */
 
-#ifndef LST_SEC_H_
-#define LST_SEC_H_
-
 #include "lst_sec.h"
 #include <stdlib.h>
 #include <string.h>
@@ -24,7 +21,7 @@ NoSec* AddNoSec(NoSec* anterior, char chave[]){
   return novo_no;
 } /* AddNoSec */
 
-void RemoveNoSecp(NoSec* no){
+void RemoveNoSec(NoSec* no){
   if(no->anterior != NULL){
     no->anterior->proximo = no->proximo;
   }
@@ -95,6 +92,10 @@ void InserirListaInvertida(LstIndSec* secundaria, char curso[], char ch_prim[], 
   }
 
   FILE* fp = fopen(arquivo, "a");
+  if(fp == NULL){
+    fp = fopen(arquivo, "w");
+  }
+  
   /* Procurando o curso na lista */
   while(aux->proximo != NULL && !achou){
     if(!strcmp(aux->chave, curso)){
@@ -115,43 +116,43 @@ void InserirListaInvertida(LstIndSec* secundaria, char curso[], char ch_prim[], 
     }
     aux_lst_inv->proximo = AddLstIP(aux_lst_inv, ch_prim, NRR);
     fprintf(fp, "%s %3d\n", ch_prim, NRR);
+    fclose(fp);
   }
   else{
+    fclose(fp);
     return;  /* Problema, curso deveria está na lista */
   }
 } /* InserirListaInvertida */
 
-
 void TrocaChavesLstSec(NoSec *maior, NoSec *menor){
-	char chave_aux[9];
-	LstIP *lst_aux;
+  char chave_aux[9];
+  LstIP *lst_aux;
 
-	lst_aux = maior->lista_invertida;
-	strcpy(chave_aux, maior->chave);
-	maior->lista_invertida = menor->lista_invertida;
-	strcpy(maior->chave, menor->chave);
-	menor->lista_invertida = lst_aux;
-	strcpy(menor->chave, chave_aux);
+  lst_aux = maior->lista_invertida;
+  strcpy(chave_aux, maior->chave);
+  maior->lista_invertida = menor->lista_invertida;
+  strcpy(maior->chave, menor->chave);
+  menor->lista_invertida = lst_aux;
+  strcpy(menor->chave, chave_aux);
 }
 
 void OrdenarLstSec(LstIndSec *lista){
-	NoSec *atual;
-	int troca = 1;
-	/* Ordenar elementos da lista secundaria. */
-	while(troca != 0){
-		troca = 0;
-		for(atual = lista->cabeca; atual != NULL; atual = atual->proximo){
-			if(strcmp(atual->chave, atual->proximo->chave) > 0){
-				TrocaChavesLstSec(atual, atual->proximo);
-				troca = 1;
-			}
-		}
-	}
+  NoSec *atual;
+  int troca = 1;
+  /* Ordenar elementos da lista secundaria. */
+  while(troca != 0){
+    troca = 0;
+    for(atual = lista->cabeca; atual != NULL; atual = atual->proximo){
+      if(strcmp(atual->chave, atual->proximo->chave) > 0){
+	TrocaChavesLstSec(atual, atual->proximo);
+	troca = 1;
+      }
+    }
+  }
 
-	/* Ordenar elementos das listas inversas */
-	for(atual = lista->cabeca; atual != NULL; atual = atual->proximo){
-		OrdenarLstIP(atual->lista_invertida);
-	}
+  /* Ordenar elementos das listas inversas */
+  for(atual = lista->cabeca; atual != NULL; atual = atual->proximo){
+    OrdenarLstIP(atual->lista_invertida);
+  }
 }
 
-#endif

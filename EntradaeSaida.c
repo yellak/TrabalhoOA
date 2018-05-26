@@ -58,7 +58,7 @@ void LerRegistro(TipoReg *registro, FILE *fp){
 
 void LerLista(int conjunto_dados, LstIP* primaria, LstIndSec* secundaria){
 	/* Verificar validade da váriavel 'conjunto_dados'. */ 
-	while(conjunto_dados != 1 || conjunto_dados != 2){
+	while(conjunto_dados != 1 && conjunto_dados != 2){
 		printf("Digite '1' para trabalhar com o conjunto de dados da lista 1 ou '2' para o conjunto da lista 2.\n");
 		scanf("%d", &conjunto_dados);
 	}
@@ -112,4 +112,14 @@ void LerLista(int conjunto_dados, LstIP* primaria, LstIndSec* secundaria){
 	free(registro.nome);
 	free(registro.curso);
 	fclose(fp);
+}
+
+void EscreveListaSec(FILE* arquivo, LstIndSec* lista){
+  NoSec* aux = lista->cabeca;
+  int NRR = 0;
+  while(aux->proximo != NULL){
+    fprintf(arquivo, "%s %3d\n", aux->chave, NRR);
+    NRR += 13;
+    aux = aux->proximo;
+  }
 }
