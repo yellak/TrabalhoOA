@@ -23,6 +23,9 @@ void LerRegistro(TipoReg *registro, FILE *fp);
 /* Ler um arquivo e salvar os registros. */
 void LerLista(int conjunto_dados, LstIP* primaria, LstIndSec* secundaria);
 
+/* Escreve a lista secundaria no arquivo de saida. */
+void EscreveListaPrim(FILE *arq, LstIP *lista);
+
 /* Escreve a lista secundária dentro o arquivo de saída */
 void EscreveListaSec(FILE* arquivo, LstIndSec* lista);
 

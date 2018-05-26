@@ -120,6 +120,14 @@ void LerLista(int conjunto_dados, LstIP* primaria, LstIndSec* secundaria){
 	fclose(fp);
 }
 
+void EscreveListaPrim(FILE *arq, LstIP *lista){
+	NoIP* aux;
+	fprintf(arq, "Indice                         NRR\n");
+	for(aux = lista->cabeca; aux != NULL; aux = aux->proximo){
+		fprintf(arq, "%s %3d\n", aux->chave, aux->NRR);
+	}
+}
+
 void EscreveListaSec(FILE* arquivo, LstIndSec* lista){
   NoSec* aux = lista->cabeca;
   int NRR = 0;

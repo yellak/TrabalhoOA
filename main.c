@@ -12,13 +12,17 @@ int main(){
   LerLista(conjunto_dados, primaria, secundaria);
 
   char arquivosec[] = "indsec1.ind";
-  FILE* arq = fopen(arquivosec, "w");
-  EscreveListaSec(arq, secundaria);
+  char arquivoprim[] = "indprim1.ind";
+  FILE* arq2 = fopen(arquivosec, "w+");
+  FILE* arq1 = fopen(arquivoprim, "w+");
+  EscreveListaSec(arq2, secundaria);
+  EscreveListaPrim(arq1, primaria);
 
   LiberaLstIndSec(secundaria);
   LiberaLstIP(primaria);
 
-  fclose(arq);
+  fclose(arq1);
+  fclose(arq2);
 
   return 0;
 }
