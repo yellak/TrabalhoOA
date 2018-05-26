@@ -100,7 +100,7 @@ void InserirListaInvertida(LstIndSec* secundaria, char curso[], char ch_prim[], 
   }
   
   /* Procurando o curso na lista */
-  while(aux->proximo != NULL && !achou){
+  while(aux != NULL && !achou){
     if(!strcmp(aux->chave, curso)){
       achou = 1;
     }
