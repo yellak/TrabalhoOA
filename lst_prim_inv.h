@@ -34,4 +34,10 @@ void LiberaLstIP(LstIP *lista);
 /* Verificar se a lista está vazia. */
 int VerVaziaLstIP(LstIP *lista);
 
+/* Trocar chaves de dois nós. */
+void TrocaChavesLstIP(NoIP *maior, NoIP *menor);
+
+/* Ordenar a lista. */
+void OrdenarLstIP(LstIP *lista);
+
 #endif
