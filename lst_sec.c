@@ -71,7 +71,7 @@ void LiberaLstIndSec(LstIndSec* lista){
 int CursoExiste(LstIndSec* lista, char curso[]){
   NoSec* aux = lista->cabeca;
   while(aux != NULL){
-    if(strcmp(aux->chave, curso)){
+    if(!strcmp(aux->chave, curso)){
       return 1;
     }
     else{
