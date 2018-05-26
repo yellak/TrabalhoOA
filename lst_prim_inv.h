@@ -45,4 +45,7 @@ void OrdenarLstIP(LstIP *lista);
 /* Escreve registro no arquivo de saída. */
 void EscreveSaida(int NRR, FILE *arq, FILE *saida);
 
+/* Faz o merge de duas listas. */
+void MergeListas(LstIP *lista1, LstIP *lista2);
+
 #endif

@@ -79,7 +79,7 @@ void OrdenarLstIP(LstIP *lista){
 
 	while(troca != 0){
 		troca = 0;
-		for(atual = lista->cabeca; atual != NULL; atual = atual->proximo){
+		for(atual = lista->cabeca; atual->proximo != NULL; atual = atual->proximo){
 			if(strcmp(atual->chave, atual->proximo->chave) > 0){
 				TrocaChavesLstIP(atual, atual->proximo);
 				troca = 1;
@@ -111,7 +111,7 @@ void MergeListas(LstIP *lista1, LstIP *lista2){
 	FILE *arq1, *arq2, *saida;
 	arq1 = fopen("lista1.txt", "r");
 	arq2 = fopen("lista2.txt", "r");
-	saida = fopen("lista11.txt", "w+");
+	saida = fopen("lista12.txt", "w+");
 	
 	/* Definir inicio da chave */
 	char *chave1 = lista1->cabeca->chave;

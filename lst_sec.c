@@ -152,7 +152,7 @@ void OrdenarLstSec(LstIndSec *lista){
   /* Ordenar elementos da lista secundaria. */
   while(troca != 0){
     troca = 0;
-    for(atual = lista->cabeca; atual != NULL; atual = atual->proximo){
+    for(atual = lista->cabeca; atual->proximo != NULL; atual = atual->proximo){
       if(strcmp(atual->chave, atual->proximo->chave) > 0){
 	TrocaChavesLstSec(atual, atual->proximo);
 	troca = 1;
