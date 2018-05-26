@@ -48,4 +48,13 @@ void EscreveSaida(int NRR, FILE *arq, FILE *saida);
 /* Faz o merge de duas listas. */
 void MergeListas(LstIP *lista1, LstIP *lista2);
 
+/* Função que remove um registro num arquivi de lista invertida
+** de chave primária */
+void RemoveRegIP(FILE* arquivo, int NRR);
+
+/* Função que busca uma chave em uma lista invertida ou de chaves
+** primárias retornando um ponteiro para o nó encontrado ou NULL
+** se a chave não foi encontrada */
+NoIP* BuscaChaveIP(LstIP* lista, char chave[]);
+
 #endif

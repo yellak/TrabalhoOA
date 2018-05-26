@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+const int REGIP = 35;
+
 LstIP* IniciarLstIP(void){
 	LstIP *lista = lista = (LstIP*) malloc(sizeof(LstIP));
 	lista->cabeca = NULL;
@@ -154,4 +156,23 @@ void MergeListas(LstIP *lista1, LstIP *lista2){
 	fclose(arq1);
 	fclose(arq2);
 	fclose(saida);
+}
+
+void RemoveRegIP(FILE* arquivo, int NRR){
+  fseek(arquivo, NRR*REGIP, SEEK_SET);
+  fprintf(arquivo, "*");
+}
+  
+NoIP* BuscaChaveIP(LstIP* lista, char chave[]){
+  NoIP* aux = lista->cabeca;
+  while(aux != NULL){
+    if(!strcmp(aux->chave, chave)){
+      return aux;
+    }
+    else{
+      aux = aux->proximo;
+    }
+  } /* while */
+
+  return NULL;
 }
