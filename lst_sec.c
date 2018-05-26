@@ -83,7 +83,7 @@ int CursoExiste(LstIndSec* lista, char curso[]){
 
 void InserirListaInvertida(LstIndSec* secundaria, char curso[], char ch_prim[], int NRR, int cj_dados){
   NoSec *aux = secundaria->cabeca;
-  NoIP *aux_lst_inv;
+  NoIP *aux_lst_inv, *pai_inv;
   int achou = 0;
 
   char arquivo[13];
@@ -110,14 +110,20 @@ void InserirListaInvertida(LstIndSec* secundaria, char curso[], char ch_prim[], 
   } /* while */
 
   if(achou){
-    aux_lst_inv = aux->lista_invertida->cabeca;
-    if(aux_lst_inv != NULL){
+    pai_inv = aux->lista_invertida->cabeca;
+    if(pai_inv != NULL){
       /* Indo para o final da lista */
-      while(aux_lst_inv->proximo != NULL){
-	aux_lst_inv = aux_lst_inv->proximo;
-      }
+    	while(pai_inv->proximo != NULL){
+			pai_inv = pai_inv->proximo;
+    	}
     }
-    aux_lst_inv->proximo = AddLstIP(aux_lst_inv, ch_prim, NRR);
+    aux_lst_inv = AddLstIP(pai_inv, ch_prim, NRR);
+    if(pai_inv == NULL){
+    	aux->lista_invertida->cabeca = aux_lst_inv;
+    }
+    else{
+    	pai_inv->proximo = aux_lst_inv;
+    }
     fprintf(fp, "%s %3d\n", ch_prim, NRR);
     fclose(fp);
   }
