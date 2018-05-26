@@ -92,7 +92,7 @@ void LerLista(int conjunto_dados, LstIP* primaria, LstIndSec* secundaria){
 
 	while(!feof(fp)){
 		LerRegistro(&registro, fp);
-		concatenado = Concatena(registro.matricula, registro.nome);
+		concatenado = Concatena(registro.nome, registro.matricula);
 
 		atual_prim = AddLstIP(pai_prim, concatenado, NRR);
 		if(pai_prim == NULL){
