@@ -3,38 +3,92 @@
 #include "lst_prim_inv.h"
 #include "EntradaeSaida.h"
 
+#define SAIR 0
+#define INCLUIR 1
+#define REMOVER 2
+#define ATUALIZAR 3
+#define MERGE 4
+
 int main(){
+  
+  /* PErguntar para o usuário qual conjuto de dados dever ser utilizado. */
+  int conjunto_dados;
+  do{
+    printf("Digite '1' para trabalhar com o conjunto de dados da lista 1 ou '2' para o conjunto da lista 2.\n");
+    scanf("%d", &conjunto_dados);
+  }while(conjunto_dados != 1 && conjunto_dados != 2);
 
-  int conjunto_dados = 0;
-  LstIP* primaria = IniciarLstIP();
-  LstIndSec* secundaria = IniciaLstIndSec();
+  /* Ler e criar listas para o conjunto de dados requisitaso. */
+  LstIP *prim = IniciarLstIP();
+  LstIndSec *sec = IniciaLstIndSec();
+  LerLista(conjunto_dados, prim, sec);
+  if(conjunto_dados == 1)
+    printf("Arquivos 'indprim1.ind', 'indsec1.ind' e 'lst_inv1.txt' criados.\n\n");
+  else
+    printf("Arquivos 'indprim2.ind', 'indsec2.ind' e 'lst_inv2.txt' criados.\n\n");
 
-  LerLista(1, primaria, secundaria);
+  TipoPED *ped = CriaPED(conjunto_dados);
 
-  char arquivosec[] = "indsec1.ind";
-  char arquivoprim[] = "indprim1.ind";
-  FILE* arq2 = fopen(arquivosec, "w+");
-  FILE* arq1 = fopen(arquivoprim, "w+");
-  OrdenarLstSec(secundaria);
-  EscreveListaSec(arq2, secundaria);
-  EscreveListaPrim(arq1, primaria);
+  LstIP *prim_nova;
+  LstIndSec *sec_nova;
+  
+  /* Perguntar o que o usuário deseja fazer. */
+  int continuar = 1;
+  int opcao;
+  do{
+    printf("\n------------------------------------\n");
+    /* Imprimir opções. */
+    printf("Digite opção desejada:\n");
+    printf("(1) - Incluir novo registro;\n");
+    printf("(2) - Remover registro existente;\n");
+    printf("(3) - Atualizar registro existente;\n");
+    printf("(4) - Realizar operação de merge com os dois arquivos de dados;\n");
+    printf("(0) - Sair do programa.\n");
+    scanf("%d", &opcao);
 
-  LstIP* prim_2 = IniciarLstIP();
-  LstIndSec* sec_2 = IniciaLstIndSec();
-  LerLista(2, prim_2, sec_2);
-  OrganizarPonteirosListas(1, secundaria);
+    /* Realizar opção desejada. */
+    switch(opcao){
+      case INCLUIR:
+        IncluirRegistro(ped, prim, sec, conjunto_dados);
+      break;
 
-  OrdenarLstIP(prim_2);
-  OrdenarLstIP(primaria);
-  MergeListas(primaria, prim_2);
+      case REMOVER:
+        RemoverRegistro(ped, prim, sec, conjunto_dados);
+      break;
 
-  LiberaLstIndSec(secundaria);
-  LiberaLstIP(primaria);
-  LiberaLstIndSec(sec_2);
-  LiberaLstIP(prim_2);
+      case ATUALIZAR:
+        /* FUNCAO DE ATUALIZAR */
+      break;
 
-  fclose(arq1);
-  fclose(arq2);
+      case MERGE:
+        /* Ler a lista do outro conjunto de dados. */
+        prim_nova = IniciarLstIP();
+        sec_nova = IniciaLstIndSec();
+        if(conjunto_dados == 1){
+          LerLista(2, prim_nova, sec_nova);
+        }
+        else{
+          LerLista(1, prim_nova, sec_nova);
+        }
+        /* Realizar o merge. */
+        MergeListas(prim, prim_nova);
+        /* LIberar listas. */
+        LiberaLstIP(prim_nova);
+        LiberaLstIndSec(sec_nova);
+      break;
+
+      case SAIR:
+        /* LIberar listas e pilha. */
+        LiberaLstIP(prim);
+        LiberaLstIndSec(sec);
+        LiberaPED(ped);
+        continuar = 0;
+      break;
+
+      default:
+        printf("Digite uma opção válida.\n");
+    }
+  }while(continuar);
 
   return 0;
 }
