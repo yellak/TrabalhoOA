@@ -179,7 +179,7 @@ void OrganizarPonteirosListas(int conjunto_dados, LstIndSec *lista){
 	fclose(arq_inv);
 }
 
-void RemoverRegDados(int NRR, int cj_dados){
+void RemoverRegDados(int NRR, int cj_dados, TipoPED* ped){
   char arq[11];
   if(cj_dados == 1){
     strcpy(arq, "lista1.txt");
@@ -189,6 +189,6 @@ void RemoverRegDados(int NRR, int cj_dados){
   }
   FILE* fp = fopen(arq, "r+");
   fseek(fp, NRR*REG_DADOS, SEEK_SET);
-  fprintf(fp, "*");
+  AddPED(ped->cabeca, NRR);
   fclose(fp);
 }

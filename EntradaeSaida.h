@@ -33,6 +33,6 @@ void EscreveListaSec(FILE* arquivo, LstIndSec* lista);
 void OrganizarPonteirosListas(int conjunto_dados, LstIndSec *lista);
 
 /* Função que remove um registro no arquivo de dados */
-void RemoverRegDados(int NRR, int cj_dados);
+void RemoverRegDados(int NRR, int cj_dados, TipoPED* ped);
 
 #endif
