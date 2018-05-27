@@ -6,6 +6,8 @@
 #include "lst_sec.h"
 #include "EntradaeSaida.h"
 
+const int REG_DADOS = 64;
+
 char* Concatena(char nome[], char matricula[]){
 	char* concatenado = (char*) malloc(sizeof(char)*31);
 
@@ -175,4 +177,18 @@ void OrganizarPonteirosListas(int conjunto_dados, LstIndSec *lista){
 	}
 
 	fclose(arq_inv);
+}
+
+void RemoverRegDados(int NRR, int cj_dados){
+  char arq[11];
+  if(cj_dados == 1){
+    strcpy(arq, "lista1.txt");
+  }
+  else{
+    strcpy(arq, "lista2.txt");
+  }
+  FILE* fp = fopen(arq, "r+");
+  fseek(fp, NRR*REG_DADOS, SEEK_SET);
+  fprintf(fp, "*");
+  fclose(fp);
 }

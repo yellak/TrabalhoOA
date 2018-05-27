@@ -32,4 +32,7 @@ void EscreveListaSec(FILE* arquivo, LstIndSec* lista);
 /* Organiza os ponteiros da lista secundária e da inversa. */
 void OrganizarPonteirosListas(int conjunto_dados, LstIndSec *lista);
 
+/* Função que remove um registro no arquivo de dados */
+void RemoverRegDados(int NRR, int cj_dados);
+
 #endif
