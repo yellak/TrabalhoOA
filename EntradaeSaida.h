@@ -41,4 +41,7 @@ void RemoverRegDados(int NRR, int cj_dados, TipoPED* ped);
 /* Função que adiciona um novo registro no aquivo de dados */
 void IncluirRegDados(TipoReg* reg, int cj_dados, TipoPED* ped);
 
+/* Função que cria a pilha de espaços disponíveis */
+TipoPED* CriaPED(int cj_dados);
+
 #endif

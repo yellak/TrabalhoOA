@@ -189,7 +189,8 @@ void RemoverRegDados(int NRR, int cj_dados, TipoPED* ped){
   }
   FILE* fp = fopen(arq, "r+");
   fseek(fp, NRR*REG_DADOS, SEEK_SET);
-  AddPED(ped->cabeca, NRR);
+  fprintf(fp, "*");
+  ped->cabeca = AddPED(ped->cabeca, NRR);
   fclose(fp);
 }
 
@@ -203,10 +204,10 @@ void IncluirRegDados(TipoReg* reg, int cj_dados, TipoPED* ped){
   }
   
   FILE* fp;
-  if(ped->cabeca != NULL){
+  if(!PEDVazia(ped)){
+    int NRR = PegarTopoPED(ped);
     fp = fopen(arq, "r+");
-    fseek(fp, ped->cabeca->NRR*REG_DADOS,  SEEK_SET);
-    RemoverNoPED(ped->cabeca, ped);
+    fseek(fp, NRR*REG_DADOS, SEEK_SET);
   }
   else{
     fp = fopen(arq, "a");
@@ -215,4 +216,30 @@ void IncluirRegDados(TipoReg* reg, int cj_dados, TipoPED* ped){
   fprintf(fp, "%s %s %s %s %s", reg->matricula, reg->nome, reg->op, reg->curso, reg->turma);
 
   fclose(fp);
+}
+
+TipoPED* CriaPED(int cj_dados){
+  char arq[11], caracter;
+  int NRR = 0;
+  TipoPED* ped = IniciarPED();
+  if(cj_dados == 1){
+    strcpy(arq, "lista1.txt");
+  }
+  else{
+    strcpy(arq, "lista2.txt");
+  }
+
+  FILE* fp = fopen(arq, "r");
+  while(!feof(fp)){
+    caracter = fgetc(fp);
+    if(caracter == "*"){
+      ped->cabeca = AddPED(ped->cabeca, NRR);
+      fseek(fp, REG_DADOS -1, SEEK_CUR);
+    }
+    else{
+      fsee(fp, REG_DADOS -1, SEEK_CUR);
+    }
+  } /* while */
+
+  return ped;
 }
