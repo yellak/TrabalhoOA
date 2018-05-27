@@ -47,4 +47,7 @@ TipoPED* CriaPED(int cj_dados);
 /* Imprime o arquivo no temrinal. */
 void ImprimirArquivo(FILE *fp);
 
+/* Remover registro pedido pelo usuario. */
+void RemoverRegistro(TipoPED *pilha, LstIP *prim, LstIndSec *sec, int cj_dados);
+
 #endif

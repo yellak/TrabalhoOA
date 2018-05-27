@@ -249,3 +249,36 @@ void ImprimirArquivo(FILE *fp){
 	while ((c = getc(fp)) != EOF)
         putchar(c);
 }
+
+void RemoverRegistro(TipoPED *pilha, LstIP *prim, LstIndSec *sec, int cj_dados){
+	NoSec *aux_sec;
+	NoIP *aux_inv, *aux_prim;
+	int i, opcao_curso, opcao_registro;
+
+	printf("Digite a opção do curso que contém o registro que você quer remover:\n");
+	for(aux_sec = sec->cabeca, i = 0; aux_sec != NULL; aux_sec = aux_sec->proximo, i++){
+		printf("(%d) - Curso %s\n", i, aux_sec->chave);
+	}
+	do{
+		scanf("%d", &opcao_curso);
+	}while(opcao_curso<0 || opcao_curso>i);
+	for(aux_sec = sec->cabeca, i=0; i!=opcao_curso; aux_sec = aux_sec->proximo, i++);
+
+	printf("Digite a opção do registro que você quer remover:\n");
+	for(aux_inv = aux_sec->lista_invertida->cabeca, i=0; aux_inv!=NULL; aux_inv = aux_inv->proximo, i++){
+		printf("(%d) - Registro %s\n", i, aux_inv->chave);
+	}
+	do{
+		scanf("%d", &opcao_registro);
+	}while(opcao_registro<0 || opcao_registro>i);
+	printf("\n");
+	for(aux_inv = aux_sec->lista_invertida->cabeca, i=0; i!=opcao_registro; aux_inv = aux_inv->proximo, i++);
+
+	for(aux_prim = prim->cabeca; !strcmp(aux_inv->chave, aux_prim->chave); aux_prim = aux_prim->proximo);
+
+	RemoverRegDados(aux_prim->NRR, cj_dados, pilha);
+
+	RemoveRegPrim(prim, aux_prim, cj_dados);
+
+	RemoverRegSec(sec, aux_inv->chave, aux_sec->chave, aux_inv->NRR, cj_dados);
+}
