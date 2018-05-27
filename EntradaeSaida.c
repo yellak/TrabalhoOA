@@ -219,29 +219,30 @@ void IncluirRegDados(TipoReg* reg, int cj_dados, TipoPED* ped){
 }
 
 TipoPED* CriaPED(int cj_dados){
-  char arq[11], caracter;
-  int NRR = 0;
-  TipoPED* ped = IniciarPED();
-  if(cj_dados == 1){
-    strcpy(arq, "lista1.txt");
-  }
-  else{
-    strcpy(arq, "lista2.txt");
-  }
+	char arq[11], caracter;
+	int NRR = 0;
+	TipoPED* ped = IniciarPED();
+	if(cj_dados == 1){
+		strcpy(arq, "lista1.txt");
+	}
+	else{
+		strcpy(arq, "lista2.txt");
+	}
 
-  FILE* fp = fopen(arq, "r");
-  while(!feof(fp)){
-    caracter = fgetc(fp);
-    if(caracter == '*'){
-      ped->cabeca = AddPED(ped->cabeca, NRR);
-      fseek(fp, REG_DADOS -1, SEEK_CUR);
-    }
-    else{
-      fseek(fp, REG_DADOS -1, SEEK_CUR);
-    }
-  } /* while */
+	FILE* fp = fopen(arq, "r");
+	while(!feof(fp)){
+		caracter = fgetc(fp);
+		if(caracter == '*'){
+			ped->cabeca = AddPED(ped->cabeca, NRR);
+			fseek(fp, REG_DADOS -1, SEEK_CUR);
+		}
+		else{
+			fseek(fp, REG_DADOS -1, SEEK_CUR);
+		}
+	} /* while */
 
-  return ped;
+	fclose(fp);
+	return ped;
 }
 
 void ImprimirArquivo(FILE *fp){
@@ -282,3 +283,151 @@ void RemoverRegistro(TipoPED *pilha, LstIP *prim, LstIndSec *sec, int cj_dados){
 
 	RemoverRegSec(sec, aux_inv->chave, aux_sec->chave, aux_inv->NRR, cj_dados);
 }
+
+void AtualizarRegistro(int cj_dados, LstIndSec *sec, LstIP *prim){
+	char arq[11];
+	int i, opcao_curso, opcao_registro, op_alterar, NRR;
+	NoSec *aux_sec;
+	NoIP *aux_inv, *aux_prim;
+	TipoReg novo_reg;
+	char *concatenado;
+	
+	if(cj_dados == 1){
+		strcpy(arq, "lista1.txt");
+	}
+	else{
+		strcpy(arq, "lista2.txt");
+	}
+
+	/* Sobre o curso de onde é o aluno */
+	printf("De qual curso é o aluno que você deseja fazer alterações?\n");
+	for(i = 0, aux_sec = sec->cabeca; aux->sec != NULL; aux_sec = aux_sec->proximo, i++){
+		printf("(%d) - %s\n", i, aux_sec->chave);
+	}
+	do{
+		printf("Escolha uma das opções: ");
+		scanf("%d", &opcao_curso);
+	}while(opcao_curso < 0 || opcao_curso > i);
+	printf("\n");
+	for(i = 0, aux_sec = sec->cabeca; i == opcao_curso; aux_sec = aux_sec->proximo, i++);
+
+	/* Sobre qual o aluno */
+	printf("Qual registro desse curso você deseja remover?\n");
+	for(aux_inv = aux_sec->lista_invertida->cabeca, i = 0; aux_inv != NULL; aux_inv = aux_inv->proximo, i++){
+		printf("(%d) - %s\n", i, aux_inv->chave);
+	}
+	do{
+		printf("Escolha uma das opções: ");
+		scanf("%d", &opcao_registro);
+	}while(opcao_registro < 0 || opcao_registro > i);
+
+	/* Acessando o registro procurado na lista de invertidas */
+	for(aux_inv = aux_sec->lista_invertida->cabeca, i = 0; i = opcao_registro; aux_inv = aux_inv->proximo, i++);
+
+	/* Acessando o resgistro procurado na lista de primárias */
+	for(aux_prim = prim->cabeca; !strcmp(aux_inv->chave, aux_prim->chave); aux_prim = aux_prim->proximo);
+	NRR = aux_prim->NRR;
+
+	printf("Qual campo você deseja alterar?");
+	printf("1. Matrícula ou nome\n");
+	printf("2. Curso\n");
+	printf("3. Opção\n");
+	printf("4. Turma\n");
+	do{
+		printf("Escolha uma: ");
+		scanf("%d", &op_alterar);
+	}while(op_alterar < 1 || op_alterar > 4);
+
+	/* Alocando espaço para o novo registro */
+	novo_reg.matricula = (char*) malloc(sizeof(char)*7);
+	novo_reg.curso = (char*) malloc(sizeof(char)*9);
+	novo_reg.nome = (char*) malloc(sizeof(char)*41);
+	novo_reg.op = (char*) malloc(sizeof(char)*4);
+	novo_reg.turma = (char*) malloc(sizeof(char)*2);
+
+	FILE* fp = fopen(arq, "r+");
+	switch(op_alterar){
+	case 1:
+		{
+			/* Adquirindo a matrícula */
+			printf("Digite a matrícula do aluno:\n");
+			fgets(novo_reg.matricula, sizeof(novo_reg.matricula), stdin);
+			setbuf(stdin, NULL);
+			novo_reg.matricula = AjustarString(novo_reg.matricula, 7);
+
+			/* Adquirindo o nome */
+			printf("Digite o nome do aluno:\n");
+			fgets(novo_reg.nome, sizeof(novo_reg.nome), stdin);
+			setbuf(stdin, NULL);
+			novo_reg.nome = AjustarString(novo_reg.nome, 41);
+
+			/* Arrumando matrícula e nome no arquivo */
+			fseek(fp, aux_prim->NRR*REG_DADOS, SEEK_SET);
+			fprintf(fp, "%s %s", novo_reg.matricula, novo_reg.nome);
+			
+			concatenado = Concatena(novo_reg.nome, novo_reg.matricula);
+			strcpy(novo_reg.curso, aux_sec->chave);
+		}
+	case 2:
+		{
+			/* Adquirindo o nome */
+			printf("Digite o nome do curso:\n");
+			fgets(novo_reg.curso, sizeof(novo_reg.curso), stdin);
+			setbuf(stdin, NULL);
+			novo_reg.curso = AjustarString(novo_reg.curso, 9);
+
+			/* Arrumando curso no arquivo */
+			fseek(fp, aux_prim->NRR*REG_DADOS + 52, SEEK_SET);
+			fprintf(fp, "%s", novo_reg.curso);
+
+			concatenado = (char*) malloc(sizeof(char)*31);
+			strcpy(concatenado, aux_prim->chave);
+		}
+	case 3:
+		{
+			/* Adquirindo a opção */
+			printf("Digite a opção do aluno\n:");
+			fgets(novo_reg.op, sizeof(novo_reg.op), stdin);
+			setbuf(stdin, NULL);
+			novo_reg.op = AjustarString(novo_reg.op, 4);
+
+			/* Arrumando opção no arquivo */
+			fseek(fp, aux_prim->NRR*REG_DADOS + 48, SEEK_SET);
+			fprintf(fp, "%s", novo_reg.op);
+		}
+	case 4:
+		{
+			/* Adquirindo a turma */
+			printf("Digite a turma do aluno\n:");
+			fgets(novo_reg.turma, sizeof(novo_reg.turma), stdin);
+			setbuf(stdin, NULL);
+			novo_reg.turma = AjustarString(novo_reg.turma, 2);
+
+			/* Arrumando turma no arquivo */
+			fseek(fp, aux_prim->NRR*REG_DADOS + 61, SEEK_SET);
+			fprintf(fp, "%s", novo_reg.turma);
+		}
+	}
+
+	if(op_alterar <= 2){
+		/* Removendo do arquivo de indices primários */
+		RemoveRegPrim(prim, aux_prim, cj_dados);
+
+		/* Removendo do arquivo de índices secundários */
+		RemoverRegSec(sec, aux_inv->chave, aux_sec->chave, aux_inv->NRR, cj_dados);
+
+		/* Reincluindo na lista e arquivo de indices primarios. */
+		IncluirRegPrim(prim, concatenado, NRR, cj_dados);
+		
+		/* Reincluindo na lista e nos arquivos de indices secundario e invertidos. */
+		IncluirRegSec(sec, concatenado, novo_reg.curso, NRR, cj_dados);
+	}
+
+	free(novo_reg.matricula);
+	free(novo_reg.curso);
+	free(novo_reg.op);
+	free(novo_reg.nome);
+	free(novo_reg.turma);
+	fclose(fp);
+}
+
