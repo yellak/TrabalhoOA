@@ -1,6 +1,7 @@
 /* TAD: Lista de índices secundários - Implementação */
 
 #include "lst_sec.h"
+#include "EntradaeSaida.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -166,3 +167,63 @@ void OrdenarLstSec(LstIndSec *lista){
   }
 }
 
+void ImprimirLstSec(LstIndSec *lista){
+	NoSec *aux = lista->cabeca;
+	int NRR;
+
+	if(lista->cabeca == NULL){
+		NRR = -1;
+	}
+	else{
+		NRR = lista->cabeca->lista_invertida->cabeca->NRR;
+	}
+	for(aux = lista->cabeca; aux != NULL; aux = aux->proximo){
+		printf("-%s %3d\n", aux->chave, NRR);
+	}
+}
+
+void IncluirRegSec(LstIndSec* lista, char* chave, char* curso, int NRR, int cj_dados){
+	NoSec *aux = lista->cabeca;
+	NoSec *pai = NULL;
+
+
+	if(!CursoExiste(lista, curso)){
+		for(aux = lista->cabeca; aux != NULL; aux = aux->proximo){
+			pai = aux;
+		}
+		if(aux == NULL){
+		    lista->cabeca = AddNoSec(NULL, curso);
+			aux = lista->cabeca;
+		}
+		else{
+			pai->proximo = AddNoSec(pai, curso);
+			aux = pai->proximo;
+		}
+	}
+	else{
+		for(aux = lista->cabeca; !strcmp(aux->chave, curso); aux = aux->proximo);
+	}
+
+	
+	/* Imprimir arquivo antes da inclusão. */
+	printf("Arquivo de indices secundarios antes da inclusão:\n");
+	ImprimirLstSec(lista);
+
+	IncluirRegInv(aux->lista_invertida, chave, NRR, curso);
+
+	OrdenarLstSec(lista);
+
+	printf("\nArquivo de indices secundarios depois da inclusão:\n");
+	ImprimirLstSec(lista);
+
+	char arq[15];
+  	if(cj_dados == 1){
+    	strcpy(arq, "indsec1.ind");
+	}
+	else{
+		strcpy(arq, "indsec2.ind");
+	}
+	FILE* fp = fopen(arq, "w+");
+	EscreveListaSec(fp, lista);
+	fclose(fp);
+}

@@ -221,10 +221,10 @@ void IncluirRegPrim(LstIP* lista, char* chave, int NRR, int cj_dados){
 
 	char arq[15];
   	if(cj_dados == 1){
-    	strcpy(arq, "indsec1.ind");
+    	strcpy(arq, "indprim1.ind");
 	}
 	else{
-		strcpy(arq, "indsec2.ind");
+		strcpy(arq, "indprim2.ind");
 	}
 	FILE* fp = fopen(arq, "w+");
 	EscreveListaPrim(fp, lista);

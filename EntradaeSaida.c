@@ -109,12 +109,12 @@ void LerLista(int conjunto_dados, LstIP* primaria, LstIndSec* secundaria){
 		pai_prim = atual_prim;
 		atual_prim = pai_prim->proximo;
 		if(!CursoExiste(secundaria, registro.curso)){
-		        if(secundaria->cabeca == NULL){
-		                secundaria->cabeca = AddNoSec(NULL, registro.curso);
+		    if(secundaria->cabeca == NULL){
+		        secundaria->cabeca = AddNoSec(NULL, registro.curso);
 				atual_sec = secundaria->cabeca;
-		        }
+		       }
 			else{
-			        atual_sec->proximo = AddNoSec(atual_sec, registro.curso);
+				atual_sec->proximo = AddNoSec(atual_sec, registro.curso);
 				atual_sec = atual_sec->proximo;
 			}
 		}
