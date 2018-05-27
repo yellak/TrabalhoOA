@@ -25,7 +25,7 @@ LstIP* IniciarLstIP(void);
 NoIP* AddLstIP(NoIP* pai, char* chave, int NRR);
 
 /* Remover nó da lista. */
-void RemoverNoLstIP(LstIP *lista, NoIP* no);
+NoIP* RemoverNoLstIP(LstIP *lista, NoIP* no);
 
 /* Eliminar recursivamente todos os itens da lista. */
 void EliminarNosLstIP(LstIP *lista, NoIP* no);
@@ -57,19 +57,16 @@ void RemoveRegistro(FILE* arquivo, int NRR);
 ** se a chave não foi encontrada */
 NoIP* BuscaChaveIP(LstIP* lista, char chave[]);
 
-/* Imprime a lista no temrinal. */
-void ImprimirLstIP(LstIP *lista);
-
 /* Remove registro da lista de indices primarios. */
-void RemoveRegPrim(LstIP *lista, NoIP *no, int cj_dados;
+void RemoveRegPrim(LstIP *lista, NoIP *no, int cj_dados);
 
 /* Inclui registros na lista de indices primarios. */
 void IncluirRegPrim(LstIP* lista, char* chave, int NRR, int cj_dados);
 
 /* Remove registro da lista de indices inversos. */
-void RemoveRegInv(LstIP *lista, NoIP *no, char* curso, int cj_dados);
+NoIP* RemoveRegInv(LstIP *lista, NoIP *no, int cj_dados);
 
 /* Inclui registros na lista de indices inversos. */
-void IncluirRegInv(LstIP* lista, char* chave, int NRR, char* curso, int cj_dados);
+void IncluirRegInv(LstIP* lista, char* chave, int NRR, int cj_dados);
 
 #endif

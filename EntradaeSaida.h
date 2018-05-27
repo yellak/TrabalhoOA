@@ -44,4 +44,7 @@ void IncluirRegDados(TipoReg* reg, int cj_dados, TipoPED* ped);
 /* Função que cria a pilha de espaços disponíveis */
 TipoPED* CriaPED(int cj_dados);
 
+/* Imprime o arquivo no temrinal. */
+void ImprimirArquivo(FILE *fp);
+
 #endif

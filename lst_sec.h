@@ -45,9 +45,6 @@ void TrocaChavesLstSec(NoSec *maior, NoSec *menor);
 /* Função que ordena a lista secundaria e suas listas invertidas. */
 void OrdenarLstSec(LstIndSec *lista);
 
-/* Imprimir lista de incidces secundario no terminal. */
-void ImprimirLstSec(LstIndSec *lista);
-
 /* INcluir registro na lista de indices secundarios. */
 void IncluirRegSec(LstIndSec* lista, char* chave, char* curso, int NRR, int cj_dados);
 

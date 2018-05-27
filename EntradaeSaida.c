@@ -232,14 +232,20 @@ TipoPED* CriaPED(int cj_dados){
   FILE* fp = fopen(arq, "r");
   while(!feof(fp)){
     caracter = fgetc(fp);
-    if(caracter == "*"){
+    if(caracter == '*'){
       ped->cabeca = AddPED(ped->cabeca, NRR);
       fseek(fp, REG_DADOS -1, SEEK_CUR);
     }
     else{
-      fsee(fp, REG_DADOS -1, SEEK_CUR);
+      fseek(fp, REG_DADOS -1, SEEK_CUR);
     }
   } /* while */
 
   return ped;
+}
+
+void ImprimirArquivo(FILE *fp){
+	int c;
+	while ((c = getc(fp)) != EOF)
+        putchar(c);
 }

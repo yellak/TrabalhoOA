@@ -32,4 +32,7 @@ void LiberaPED(TipoPED *ped);
 /* Verificar se a PED está vazia. */
 int PEDVazia(TipoPED *ped);
 
+/* Pegar topo da pilha. */
+int PegarTopoPED(TipoPED *ped);
+
 #endif

@@ -168,25 +168,18 @@ void OrdenarLstSec(LstIndSec *lista){
   }
 }
 
-void ImprimirLstSec(LstIndSec *lista){
-	NoSec *aux = lista->cabeca;
-	int NRR;
-
-	if(lista->cabeca == NULL){
-		NRR = -1;
-	}
-	else{
-		NRR = lista->cabeca->lista_invertida->cabeca->NRR;
-	}
-	for(aux = lista->cabeca; aux != NULL; aux = aux->proximo){
-		printf("-%s %3d\n", aux->chave, NRR);
-	}
-}
-
 void IncluirRegSec(LstIndSec* lista, char* chave, char* curso, int NRR, int cj_dados){
 	NoSec *aux = lista->cabeca;
 	NoSec *pai = NULL;
 
+	char arq[15];
+  	if(cj_dados == 1){
+    	strcpy(arq, "indsec1.ind");
+	}
+	else{
+		strcpy(arq, "indsec2.ind");
+	}
+	FILE* fp = fopen(arq, "r");
 
 	if(!CursoExiste(lista, curso)){
 		for(aux = lista->cabeca; aux != NULL; aux = aux->proximo){
@@ -208,17 +201,38 @@ void IncluirRegSec(LstIndSec* lista, char* chave, char* curso, int NRR, int cj_d
 	
 	/* Imprimir arquivo antes da inclusão. */
 	printf("Arquivo de indices secundarios antes da inclusão:\n");
-	ImprimirLstSec(lista);
+	ImprimirArquivo(fp);
+	fclose(fp);
 
-	IncluirRegInv(aux->lista_invertida, chave, NRR, curso, cj_dados);
+	IncluirRegInv(aux->lista_invertida, chave, NRR, cj_dados);
 
 	OrganizarPonteirosListas(cj_dados, lista);
 
 	OrdenarLstSec(lista);
 
-	printf("\nArquivo de indices secundarios depois da inclusão:\n");
-	ImprimirLstSec(lista);
+	fp = fopen(arq, "w+");
+	EscreveListaSec(fp, lista);
 
+	printf("\nArquivo de indices secundarios depois da inclusão:\n");
+	ImprimirArquivo(fp);
+	fclose(fp);
+}
+
+void RemoverRegSec(LstIndSec* lista, char* chave, char* curso, int NRR, int cj_dados){
+	NoSec *aux_sec;
+	NoIP *aux_inv;
+
+	for(aux_sec = lista->cabeca; !strcmp(curso, aux_sec->chave); aux_sec = aux_sec->proximo);
+
+	for(aux_inv = aux_sec->lista_invertida->cabeca; !strcmp(aux_inv->chave, curso); aux_inv = aux_inv->proximo);
+	
+	if(aux_inv == aux_sec->lista_invertida->cabeca){
+		aux_sec->lista_invertida->cabeca = RemoveRegInv(aux_sec->lista_invertida, aux_inv, cj_dados);
+	}
+	else{
+		RemoveRegInv(aux_sec->lista_invertida, aux_inv, cj_dados);
+	}
+	
 	char arq[15];
   	if(cj_dados == 1){
     	strcpy(arq, "indsec1.ind");
@@ -228,5 +242,4 @@ void IncluirRegSec(LstIndSec* lista, char* chave, char* curso, int NRR, int cj_d
 	}
 	FILE* fp = fopen(arq, "w+");
 	EscreveListaSec(fp, lista);
-	fclose(fp);
 }
