@@ -139,10 +139,10 @@ void EscreveListaPrim(FILE *arq, LstIP *lista){
 
 void EscreveListaSec(FILE* arquivo, LstIndSec* lista){
   NoSec* aux = lista->cabeca;
-  int NRR = 0;
+  int NRR;
   while(aux != NULL){
+    NRR = aux->lista_invertida->cabeca->NRR;
     fprintf(arquivo, "%s %3d\n", aux->chave, NRR);
-    NRR += 13;
     aux = aux->proximo;
   }
 }
@@ -151,19 +151,15 @@ void OrganizarPonteirosListas(int conjunto_dados, LstIndSec *lista){
 	NoSec *aux_sec;
 	NoIP *aux_inv;
 	int NRR;
-	int aux = 0;
-	char nome_arq_inv[15], nome_arq_sec[15];
+	char nome_arq_inv[15];
 
 	if(conjunto_dados == 1){
 		strcpy(nome_arq_inv, "lst_inv1.txt");
-		strcpy(nome_arq_sec, "indsec1.ind");
 	}
 	else if(conjunto_dados == 2){
 		strcpy(nome_arq_inv, "lst_inv2.txt");
-		strcpy(nome_arq_sec, "indsec2.ind");
 	}
 	FILE *arq_inv = fopen(nome_arq_inv, "r+");
-	FILE *arq_sec = fopen(nome_arq_sec, "r+");
 
 	for(aux_sec = lista->cabeca; aux_sec != NULL; aux_sec = aux_sec->proximo){
 		for(aux_inv = aux_sec->lista_invertida->cabeca; aux_inv !=NULL; aux_inv = aux_inv->proximo){
@@ -176,18 +172,7 @@ void OrganizarPonteirosListas(int conjunto_dados, LstIndSec *lista){
 			fseek(arq_inv, 35*aux_inv->NRR + 31, SEEK_SET);
 			fprintf(arq_inv, "%3d", NRR);
 		}
-
-		if(aux_sec->lista_invertida->cabeca != NULL){
-			NRR = aux_sec->lista_invertida->cabeca->NRR;
-		}
-		else{
-			NRR = -1;
-		}
-		fseek(arq_sec, aux*14 + 10, SEEK_SET);
-		fprintf(arq_sec, "%3d", NRR);
-		aux++;
 	}
 
 	fclose(arq_inv);
-	fclose(arq_sec);
 }

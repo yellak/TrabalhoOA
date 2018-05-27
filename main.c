@@ -15,6 +15,7 @@ int main(){
   char arquivoprim[] = "indprim1.ind";
   FILE* arq2 = fopen(arquivosec, "w+");
   FILE* arq1 = fopen(arquivoprim, "w+");
+  OrdenarLstSec(secundaria);
   EscreveListaSec(arq2, secundaria);
   EscreveListaPrim(arq1, primaria);
 
