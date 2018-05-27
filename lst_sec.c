@@ -2,6 +2,7 @@
 
 #include "lst_sec.h"
 #include "EntradaeSaida.h"
+#include "lst_prim_inv.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -58,7 +59,7 @@ void LiberaLstIndSec(LstIndSec* lista){
   NoSec* aux2 = lista->cabeca->proximo;
   while(aux->proximo != NULL){
     if(aux->lista_invertida != NULL){
-      free(aux->lista_invertida);
+      LiberaLstIP(aux->lista_invertida);
     }
     free(aux);
     aux = aux2;
