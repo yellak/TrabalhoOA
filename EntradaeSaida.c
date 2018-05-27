@@ -271,7 +271,7 @@ void RemoverRegistro(TipoPED *pilha, LstIP *prim, LstIndSec *sec, int cj_dados){
 	do{
 		scanf("%d", &opcao_curso);
 	}while(opcao_curso<0 || opcao_curso>i);
-	for(aux_sec = sec->cabeca, i=0; i!=opcao_curso; aux_sec = aux_sec->proximo, i++);
+	for(aux_sec = sec->cabeca, i = 0; i < opcao_curso; aux_sec = aux_sec->proximo, i++);
 
 	printf("Digite a opção do registro que você quer remover:\n");
 	for(aux_inv = aux_sec->lista_invertida->cabeca, i=0; aux_inv!=NULL; aux_inv = aux_inv->proximo, i++){
@@ -279,11 +279,11 @@ void RemoverRegistro(TipoPED *pilha, LstIP *prim, LstIndSec *sec, int cj_dados){
 	}
 	do{
 		scanf("%d", &opcao_registro);
-	}while(opcao_registro<0 || opcao_registro>i);
+	}while(opcao_registro < 0 || opcao_registro > i -1);
 	printf("\n");
-	for(aux_inv = aux_sec->lista_invertida->cabeca, i=0; i!=opcao_registro; aux_inv = aux_inv->proximo, i++);
+	for(aux_inv = aux_sec->lista_invertida->cabeca, i=0; i < opcao_registro; aux_inv = aux_inv->proximo, i++);
 
-	for(aux_prim = prim->cabeca; !strcmp(aux_inv->chave, aux_prim->chave); aux_prim = aux_prim->proximo);
+	for(aux_prim = prim->cabeca; strcmp(aux_inv->chave, aux_prim->chave); aux_prim = aux_prim->proximo);
 
 	RemoverRegDados(aux_prim->NRR, cj_dados, pilha);
 
@@ -398,7 +398,7 @@ void AtualizarRegistro(int cj_dados, LstIndSec *sec, LstIP *prim){
 		scanf("%d", &opcao_curso);
 	}while(opcao_curso < 0 || opcao_curso > i);
 	printf("\n");
-	for(i = 0, aux_sec = sec->cabeca; i == opcao_curso; aux_sec = aux_sec->proximo, i++);
+	for(i = 0, aux_sec = sec->cabeca; i < opcao_curso; aux_sec = aux_sec->proximo, i++);
 
 	/* Sobre qual o aluno */
 	printf("Qual registro desse curso você deseja remover?\n");
@@ -411,7 +411,7 @@ void AtualizarRegistro(int cj_dados, LstIndSec *sec, LstIP *prim){
 	}while(opcao_registro < 0 || opcao_registro > i);
 
 	/* Acessando o registro procurado na lista de invertidas */
-	for(aux_inv = aux_sec->lista_invertida->cabeca, i = 0; i == opcao_registro; aux_inv = aux_inv->proximo, i++);
+	for(aux_inv = aux_sec->lista_invertida->cabeca, i = 0; i <= opcao_registro; aux_inv = aux_inv->proximo, i++);
 
 	/* Acessando o resgistro procurado na lista de primárias */
 	for(aux_prim = prim->cabeca; !strcmp(aux_inv->chave, aux_prim->chave); aux_prim = aux_prim->proximo);
