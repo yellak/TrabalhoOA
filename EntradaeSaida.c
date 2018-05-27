@@ -212,7 +212,7 @@ void IncluirRegDados(TipoReg* reg, int cj_dados, TipoPED* ped){
     fp = fopen(arq, "a");
   }
 
-  fprintf(fp, "%s %s %s %s %s", reg.matricula, reg.nome, reg.op, reg.curso, reg.turma);
+  fprintf(fp, "%s %s %s %s %s", reg->matricula, reg->nome, reg->op, reg->curso, reg->turma);
 
   fclose(fp);
 }

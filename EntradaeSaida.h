@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include "lst_prim_inv.h"
 #include "lst_sec.h"
+#include "PED.h"
 
 /*Definição da struct do tipo registro. */
 typedef struct registro{
