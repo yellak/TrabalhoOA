@@ -192,3 +192,27 @@ void RemoverRegDados(int NRR, int cj_dados, TipoPED* ped){
   AddPED(ped->cabeca, NRR);
   fclose(fp);
 }
+
+void IncluirRegDados(TipoReg* reg, int cj_dados, TipoPED* ped){
+  char arq[11];
+  if(cj_dados == 1){
+    strcpy(arq, "lista1.txt");
+  }
+  else{
+    strcpy(arq, "lista2.txt");
+  }
+  
+  FILE* fp;
+  if(ped->cabeca != NULL){
+    fp = fopen(arq, "r+");
+    fseek(fp, ped->cabeca->NRR*REG_DADOS,  SEEK_SET);
+    RemoverNoPED(ped->cabeca, ped);
+  }
+  else{
+    fp = fopen(arq, "a");
+  }
+
+  fprintf(fp, "%s %s %s %s %s", reg.matricula, reg.nome, reg.op, reg.curso, reg.turma);
+
+  fclose(fp);
+}

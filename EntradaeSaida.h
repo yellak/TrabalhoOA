@@ -11,7 +11,9 @@
 typedef struct registro{
 	char *matricula;
 	char *nome;
-	char *curso; 
+	char *curso;
+        char *op;
+        char *turma;
 }TipoReg;
 
 /* Concatena nome e matricula em uma so chave. */
@@ -34,5 +36,8 @@ void OrganizarPonteirosListas(int conjunto_dados, LstIndSec *lista);
 
 /* Função que remove um registro no arquivo de dados */
 void RemoverRegDados(int NRR, int cj_dados, TipoPED* ped);
+
+/* Função que adiciona um novo registro no aquivo de dados */
+void IncluirRegDados(TipoReg* reg, int cj_dados, TipoPED* ped);
 
 #endif
