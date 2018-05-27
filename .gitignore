@@ -53,6 +53,7 @@ dkms.conf
 
 # Arquivos temporários
 *~
+*#
 
 # Executable
 main
