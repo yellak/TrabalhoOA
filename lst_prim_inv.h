@@ -57,4 +57,19 @@ void RemoveRegistro(FILE* arquivo, int NRR);
 ** se a chave não foi encontrada */
 NoIP* BuscaChaveIP(LstIP* lista, char chave[]);
 
+/* Imprime a lista no temrinal. */
+void ImprimirLstIP(LstIP *lista);
+
+/* Remove registro da lista de indices primarios. */
+void RemoveRegPrim(LstIP *lista, NoIP *no);
+
+/* Inclui registros na lista de indices primarios. */
+void IncluirRegPrim(LstIP* lista, char* chave, int NRR, int cj_dados);
+
+/* Remove registro da lista de indices inversos. */
+void RemoveRegInv(LstIP *lista, NoIP *no, char* curso);
+
+/* Inclui registros na lista de indices inversos. */
+void IncluirRegInv(LstIP* lista, char* chave, int NRR, char* curso);
+
 #endif
