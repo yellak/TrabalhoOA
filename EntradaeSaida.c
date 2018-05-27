@@ -98,27 +98,28 @@ void LerLista(int conjunto_dados, LstIP* primaria, LstIndSec* secundaria){
 		fseek(fp, temp, SEEK_SET);
 		LerRegistro(&registro, fp);
 		concatenado = Concatena(registro.nome, registro.matricula);
-
-		atual_prim = AddLstIP(pai_prim, concatenado, NRR);
-		if(pai_prim == NULL){
-			primaria->cabeca = atual_prim;
-		}
-		else{
-			pai_prim->proximo = atual_prim;
-		}
-		pai_prim = atual_prim;
-		atual_prim = pai_prim->proximo;
-		if(!CursoExiste(secundaria, registro.curso)){
-		    if(secundaria->cabeca == NULL){
-		        secundaria->cabeca = AddNoSec(NULL, registro.curso);
-				atual_sec = secundaria->cabeca;
-		       }
-			else{
-				atual_sec->proximo = AddNoSec(atual_sec, registro.curso);
-				atual_sec = atual_sec->proximo;
+		if(concatenado[0] != '*'){
+			atual_prim = AddLstIP(pai_prim, concatenado, NRR);
+			if(pai_prim == NULL){
+				primaria->cabeca = atual_prim;
 			}
+			else{
+				pai_prim->proximo = atual_prim;
+			}
+			pai_prim = atual_prim;
+			atual_prim = pai_prim->proximo;
+			if(!CursoExiste(secundaria, registro.curso)){
+				if(secundaria->cabeca == NULL){
+					secundaria->cabeca = AddNoSec(NULL, registro.curso);
+					atual_sec = secundaria->cabeca;
+				}
+				else{
+					atual_sec->proximo = AddNoSec(atual_sec, registro.curso);
+					atual_sec = atual_sec->proximo;
+				}
+			}
+			InserirListaInvertida(secundaria, registro.curso, concatenado, NRR, conjunto_dados);
 		}
-		InserirListaInvertida(secundaria, registro.curso, concatenado, NRR, conjunto_dados);
 		NRR++;
 		free(concatenado);
 		temp = ftell(fp);
