@@ -411,10 +411,10 @@ void AtualizarRegistro(int cj_dados, LstIndSec *sec, LstIP *prim){
 	}while(opcao_registro < 0 || opcao_registro > i);
 
 	/* Acessando o registro procurado na lista de invertidas */
-	for(aux_inv = aux_sec->lista_invertida->cabeca, i = 0; i <= opcao_registro; aux_inv = aux_inv->proximo, i++);
+	for(aux_inv = aux_sec->lista_invertida->cabeca, i = 0; i < opcao_registro; aux_inv = aux_inv->proximo, i++);
 
 	/* Acessando o resgistro procurado na lista de primárias */
-	for(aux_prim = prim->cabeca; !strcmp(aux_inv->chave, aux_prim->chave); aux_prim = aux_prim->proximo);
+	for(aux_prim = prim->cabeca; strcmp(aux_inv->chave, aux_prim->chave); aux_prim = aux_prim->proximo);
 	NRR = aux_prim->NRR;
 
 	printf("Qual campo você deseja alterar?");
