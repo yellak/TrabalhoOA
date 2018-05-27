@@ -61,15 +61,15 @@ NoIP* BuscaChaveIP(LstIP* lista, char chave[]);
 void ImprimirLstIP(LstIP *lista);
 
 /* Remove registro da lista de indices primarios. */
-void RemoveRegPrim(LstIP *lista, NoIP *no);
+void RemoveRegPrim(LstIP *lista, NoIP *no, int cj_dados;
 
 /* Inclui registros na lista de indices primarios. */
 void IncluirRegPrim(LstIP* lista, char* chave, int NRR, int cj_dados);
 
 /* Remove registro da lista de indices inversos. */
-void RemoveRegInv(LstIP *lista, NoIP *no, char* curso);
+void RemoveRegInv(LstIP *lista, NoIP *no, char* curso, int cj_dados);
 
 /* Inclui registros na lista de indices inversos. */
-void IncluirRegInv(LstIP* lista, char* chave, int NRR, char* curso);
+void IncluirRegInv(LstIP* lista, char* chave, int NRR, char* curso, int cj_dados);
 
 #endif

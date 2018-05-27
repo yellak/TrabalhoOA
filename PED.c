@@ -10,11 +10,14 @@ TipoPED* IniciarPED(void){
 	return ped;
 }
 
-NoPED* AddPED(NoPED* pai, int NRR){
-	NoPED* no = (NoPED*) malloc (sizeof(NoPED));
+NoPED* AddPED(NoPED* filho, int NRR){
+	NoPED* no = (NoPED*) malloc(sizeof(NoPED));
 	no->NRR = NRR;
-	no->proximo = NULL;
-	no->anterior = pai;
+	no->proximo = filho;
+	if(filho != NULL){
+		filho->anterior = no;
+	}
+	no->anterior = NULL;
 	return no;
 }
 
