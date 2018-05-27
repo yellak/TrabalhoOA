@@ -190,7 +190,7 @@ void IncluirRegSec(LstIndSec* lista, char* chave, char* curso, int NRR, int cj_d
 			pai = aux;
 		}
 		if(aux == NULL){
-			lista->cabeca = AddNoSec(NULL, curso);
+			AddNoSec(NULL, curso);
 			aux = lista->cabeca;
 		}
 		else{

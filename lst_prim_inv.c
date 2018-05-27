@@ -273,9 +273,7 @@ void IncluirRegInv(LstIP* lista, char* chave, int NRR, int cj_dados){
 	fclose(fp);
 
 	/* Achar ultimo elemento na lista. */
-	for(aux = lista->cabeca; aux != NULL; aux = aux->proximo){
-		pai = aux;
-	}
+	for(aux = lista->cabeca; aux != NULL; pai = aux, aux = aux->proximo);
 
 	/* Adicionar novo registro na lista. */
 	pai->proximo = AddLstIP(pai, chave, ftell(fp)/35);
@@ -316,77 +314,4 @@ NoIP* RemoveRegInv(LstIP *lista, NoIP *no, int cj_dados){
 
 	fclose(fp);	
 	return temp;
-}
-
-char* AjustarString(char *string, int tamanho){
-	int i, achou_0;
-
-	/* Percorrer toda a string, incluindo espaços antes do '\0'. */
-	for(i=0, achou_0 = 0; i != tamanho-1; i++){
-		if(string[i] == '\0')
-			achou_0 = 1;
-		if(achou_0){
-			string[i] = ' ';
-		}
-	}
-	string[tamanho-1] = '\0';
-
-	return string;
-}
-
-void IncluirRegistro(TipoPED *pilha, LstIP *prim, LstIndSec *sec, int cj_dados){
-	TipoReg reg;
-
-	/* Alocar espaço para os registros. */
-	reg.matricula = (char*) malloc(sizeof(char)*7);
-	reg.curso = (char*) malloc(sizeof(char)*9);
-	reg.nome = (char*) malloc(sizeof(char)*41);
-	reg.op = (char*) malloc(sizeof(char)*4);
-	reg.turma = (char*) malloc(sizeof(char)*2);
-
-	/* Ler informações do novo registro. */
-	/* LEr informações da matricula. */
-	printf("Digite a matricula do registro a ser inserido:\n");
-	fgets(reg.matricula, sizeof(reg.matricula), stdin);
-	setbuf(stdin, NULL);
-	reg.matricula = AjustarString(reg.matricula, 7);
-	/* Ler informaçẽos do nome. */
-	printf("Digite o nome do registro a ser inserido:\n");
-	fgets(reg.nome, sizeof(reg.nome), stdin);
-	setbuf(stdin, NULL);
-	reg.nome = AjustarString(reg.nome, 41);
-	/* Ler informações da opção. */
-	printf("Digite a opção do registro a ser inserido:\n");
-	fgets(reg.op, sizeof(reg.op), stdin);
-	setbuf(stdin, NULL);
-	reg.op = AjustarString(reg.op, 4);
-	/* Ler informações do curso. */
-	printf("Digite o curso do registro a ser inserido:\n");
-	fgets(reg.curso, sizeof(reg.curso), stdin);
-	setbuf(stdin, NULL);
-	reg.curso = AjustarString(reg.curso, 9);
-	/* Ler informações da turma. */
-	printf("Digite a turma do registro a ser inserido:\n");
-	fgets(reg.turma, sizeof(reg.turma), stdin);
-	setbuf(stdin, NULL);
-	reg.turma = AjustarString(reg.turma, 2);
-
-	char *concatenado = Concatena(reg.nome, reg.matricula); 
-	
-	/* Incluri novo registro no arquivo de dados e pegar o NRR dele. */
-	int NRR = IncluirRegDados(&reg, cj_dados, pilha);
-
-	/* Incluir registro na lista e arquivo de indices primarios. */
-	IncluirRegPrim(prim, concatenado, NRR, cj_dados);
-
-	/* Incluir registro na lista e arquivos de indices secundario e invertidos. */
-	IncluirRegSec(sec, concatenado, reg.curso, NRR, cj_dados);
-
-	/* Liberar memoria alocada. */
-	free(reg.matricula);
-	free(reg.nome);
-	free(reg.op);
-	free(reg.turma);
-	free(reg.curso);
-	free(concatenado);
 }

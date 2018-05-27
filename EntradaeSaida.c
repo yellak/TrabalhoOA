@@ -194,7 +194,7 @@ void RemoverRegDados(int NRR, int cj_dados, TipoPED* ped){
   fclose(fp);
 }
 
-void IncluirRegDados(TipoReg* reg, int cj_dados, TipoPED* ped){
+int IncluirRegDados(TipoReg* reg, int cj_dados, TipoPED* ped){
   char arq[11];
   if(cj_dados == 1){
     strcpy(arq, "lista1.txt");
@@ -203,19 +203,23 @@ void IncluirRegDados(TipoReg* reg, int cj_dados, TipoPED* ped){
     strcpy(arq, "lista2.txt");
   }
   
+  int NRR;
   FILE* fp;
   if(!PEDVazia(ped)){
-    int NRR = PegarTopoPED(ped);
+    NRR = PegarTopoPED(ped);
     fp = fopen(arq, "r+");
     fseek(fp, NRR*REG_DADOS, SEEK_SET);
   }
   else{
     fp = fopen(arq, "a");
+    NRR = (int) ftell(fp)/REG_DADOS;
   }
 
   fprintf(fp, "%s %s %s %s %s", reg->matricula, reg->nome, reg->op, reg->curso, reg->turma);
 
   fclose(fp);
+
+  return NRR;
 }
 
 TipoPED* CriaPED(int cj_dados){
@@ -230,7 +234,9 @@ TipoPED* CriaPED(int cj_dados){
 	}
 
 	FILE* fp = fopen(arq, "r");
+	long temp = ftell(fp);
 	while(!feof(fp)){
+		fseek(fp, temp, SEEK_SET);
 		caracter = fgetc(fp);
 		if(caracter == '*'){
 			ped->cabeca = AddPED(ped->cabeca, NRR);
@@ -239,6 +245,8 @@ TipoPED* CriaPED(int cj_dados){
 		else{
 			fseek(fp, REG_DADOS -1, SEEK_CUR);
 		}
+		temp = ftell(fp);
+		fgetc(fp);
 	} /* while */
 
 	fclose(fp);
@@ -284,6 +292,87 @@ void RemoverRegistro(TipoPED *pilha, LstIP *prim, LstIndSec *sec, int cj_dados){
 	RemoverRegSec(sec, aux_inv->chave, aux_sec->chave, aux_inv->NRR, cj_dados);
 }
 
+char* AjustarString(char *string, int tamanho){
+	int i, achou_0;
+
+	/* Percorrer toda a string, incluindo espaços antes do '\0'. */
+	for(i=0, achou_0 = 0; i != tamanho-1; i++){
+		if(string[i] == '\0'){
+			achou_0 = 1;
+			string[i-1] = ' ';
+		}
+		if(achou_0){
+			string[i] = ' ';
+		}
+	}
+	string[tamanho-1] = '\0';
+
+	return string;
+}
+
+void IncluirRegistro(TipoPED *pilha, LstIP *prim, LstIndSec *sec, int cj_dados){
+	TipoReg reg;
+
+	/* Alocar espaço para os registros. */
+	reg.matricula = (char*) malloc(sizeof(char)*7);
+	reg.curso = (char*) malloc(sizeof(char)*9);
+	reg.nome = (char*) malloc(sizeof(char)*41);
+	reg.op = (char*) malloc(sizeof(char)*4);
+	reg.turma = (char*) malloc(sizeof(char)*2);
+
+	/* Ler informações do novo registro. */
+	/* LEr informações da matricula. */
+	printf("Digite a matricula do registro a ser inserido:\n");
+	setbuf(stdin, NULL);
+	fgets(reg.matricula, sizeof(char)*7, stdin);
+	getchar();
+	setbuf(stdin, NULL);
+	reg.matricula = AjustarString(reg.matricula, 7);
+	/* Ler informaçẽos do nome. */
+	printf("Digite o nome do registro a ser inserido:\n");
+	setbuf(stdin, NULL);
+	fgets(reg.nome, sizeof(char)*41, stdin);
+	setbuf(stdin, NULL);
+	reg.nome = AjustarString(reg.nome, 41);
+	/* Ler informações da opção. */
+	printf("Digite a opção do registro a ser inserido:\n");
+	setbuf(stdin, NULL);
+	fgets(reg.op, sizeof(char)*4, stdin);
+	setbuf(stdin, NULL);
+	reg.op = AjustarString(reg.op, 4);
+	/* Ler informações do curso. */
+	printf("Digite o curso do registro a ser inserido:\n");
+	setbuf(stdin, NULL);
+	fgets(reg.curso, sizeof(char)*9, stdin);
+	setbuf(stdin, NULL);
+	reg.curso = AjustarString(reg.curso, 9);
+	/* Ler informações da turma. */
+	printf("Digite a turma do registro a ser inserido:\n");
+	setbuf(stdin, NULL);
+	fgets(reg.turma, sizeof(char)*2, stdin);
+	setbuf(stdin, NULL);
+	reg.turma = AjustarString(reg.turma, 2);
+
+	char *concatenado = Concatena(reg.nome, reg.matricula); 
+	
+	/* Incluri novo registro no arquivo de dados e pegar o NRR dele. */
+	int NRR = IncluirRegDados(&reg, cj_dados, pilha);
+
+	/* Incluir registro na lista e arquivo de indices primarios. */
+	IncluirRegPrim(prim, concatenado, NRR, cj_dados);
+
+	/* Incluir registro na lista e arquivos de indices secundario e invertidos. */
+	IncluirRegSec(sec, concatenado, reg.curso, NRR, cj_dados);
+
+	/* Liberar memoria alocada. */
+	free(reg.matricula);
+	free(reg.nome);
+	free(reg.op);
+	free(reg.turma);
+	free(reg.curso);
+	free(concatenado);
+}
+
 void AtualizarRegistro(int cj_dados, LstIndSec *sec, LstIP *prim){
 	char arq[11];
 	int i, opcao_curso, opcao_registro, op_alterar, NRR;
@@ -301,7 +390,7 @@ void AtualizarRegistro(int cj_dados, LstIndSec *sec, LstIP *prim){
 
 	/* Sobre o curso de onde é o aluno */
 	printf("De qual curso é o aluno que você deseja fazer alterações?\n");
-	for(i = 0, aux_sec = sec->cabeca; aux->sec != NULL; aux_sec = aux_sec->proximo, i++){
+	for(i = 0, aux_sec = sec->cabeca; aux_sec != NULL; aux_sec = aux_sec->proximo, i++){
 		printf("(%d) - %s\n", i, aux_sec->chave);
 	}
 	do{
@@ -322,7 +411,7 @@ void AtualizarRegistro(int cj_dados, LstIndSec *sec, LstIP *prim){
 	}while(opcao_registro < 0 || opcao_registro > i);
 
 	/* Acessando o registro procurado na lista de invertidas */
-	for(aux_inv = aux_sec->lista_invertida->cabeca, i = 0; i = opcao_registro; aux_inv = aux_inv->proximo, i++);
+	for(aux_inv = aux_sec->lista_invertida->cabeca, i = 0; i == opcao_registro; aux_inv = aux_inv->proximo, i++);
 
 	/* Acessando o resgistro procurado na lista de primárias */
 	for(aux_prim = prim->cabeca; !strcmp(aux_inv->chave, aux_prim->chave); aux_prim = aux_prim->proximo);

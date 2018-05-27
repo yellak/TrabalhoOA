@@ -39,7 +39,7 @@ void OrganizarPonteirosListas(int conjunto_dados, LstIndSec *lista);
 void RemoverRegDados(int NRR, int cj_dados, TipoPED* ped);
 
 /* Função que adiciona um novo registro no aquivo de dados */
-void IncluirRegDados(TipoReg* reg, int cj_dados, TipoPED* ped);
+int IncluirRegDados(TipoReg* reg, int cj_dados, TipoPED* ped);
 
 /* Função que cria a pilha de espaços disponíveis */
 TipoPED* CriaPED(int cj_dados);
@@ -49,5 +49,14 @@ void ImprimirArquivo(FILE *fp);
 
 /* Remover registro pedido pelo usuario. */
 void RemoverRegistro(TipoPED *pilha, LstIP *prim, LstIndSec *sec, int cj_dados);
+
+/* Ajusta uma string para ficar no formato adequado para manipulação. */
+char* AjustarString(char *string, int tamanho);
+
+/* Incluir um novo registro. */
+void IncluirRegistro(TipoPED *pilha, LstIP *prim, LstIndSec *sec, int cj_dados);
+
+/* Atualiza um registro. */
+void AtualizarRegistro(int cj_dados, LstIndSec *sec, LstIP *prim);
 
 #endif

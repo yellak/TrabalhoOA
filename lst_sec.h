@@ -48,4 +48,7 @@ void OrdenarLstSec(LstIndSec *lista);
 /* INcluir registro na lista de indices secundarios. */
 void IncluirRegSec(LstIndSec* lista, char* chave, char* curso, int NRR, int cj_dados);
 
+/* Remover registro da lista de indices secundarios. */
+void RemoverRegSec(LstIndSec* lista, char* chave, char* curso, int NRR, int cj_dados);
+
 #endif
