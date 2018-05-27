@@ -172,15 +172,19 @@ void IncluirRegSec(LstIndSec* lista, char* chave, char* curso, int NRR, int cj_d
 	NoSec *aux = lista->cabeca;
 	NoSec *pai = NULL;
 
-	char arq[15];
+	/* Pegar informações do arquivo. */
+	char arq[15], arq_inv[15];
   	if(cj_dados == 1){
 		strcpy(arq, "indsec1.ind");
+		strcpy(arq_inv, "lst_inv1.txt");
 	}
 	else{
 		strcpy(arq, "indsec2.ind");
+		strcpy(arq_inv, "lst_inv2.txt");
 	}
 	FILE* fp = fopen(arq, "r");
 
+	/* Achar curso na lista, ou criar se não existir. */
 	if(!CursoExiste(lista, curso)){
 		for(aux = lista->cabeca; aux != NULL; aux = aux->proximo){
 			pai = aux;
@@ -204,35 +208,31 @@ void IncluirRegSec(LstIndSec* lista, char* chave, char* curso, int NRR, int cj_d
 	ImprimirArquivo(fp);
 	fclose(fp);
 
+	/* Incluir registro na lista de invertidas. */
 	IncluirRegInv(aux->lista_invertida, chave, NRR, cj_dados);
 
+	/* Reorganizar ponteiros na lista de invertidas e ordenar lista e indices secundarios. */
 	OrganizarPonteirosListas(cj_dados, lista);
-
 	OrdenarLstSec(lista);
 
+	printf("\nArquivo de indices secundarios depois da inclusão:\n");
 	fp = fopen(arq, "w+");
 	EscreveListaSec(fp, lista);
-
-	printf("\nArquivo de indices secundarios depois da inclusão:\n");
 	ImprimirArquivo(fp);
 	fclose(fp);
+
+	fp = fopen(arq_inv, "r");
+	printf("\nArquivo de indices invertidos depois da inclusão:\n");
+	ImprimirArquivo(fp);
+
+	fclose(fp);	
 }
 
 void RemoverRegSec(LstIndSec* lista, char* chave, char* curso, int NRR, int cj_dados){
 	NoSec *aux_sec;
 	NoIP *aux_inv;
 
-	for(aux_sec = lista->cabeca; !strcmp(curso, aux_sec->chave); aux_sec = aux_sec->proximo);
-
-	for(aux_inv = aux_sec->lista_invertida->cabeca; !strcmp(aux_inv->chave, curso); aux_inv = aux_inv->proximo);
-	
-	if(aux_inv == aux_sec->lista_invertida->cabeca){
-		aux_sec->lista_invertida->cabeca = RemoveRegInv(aux_sec->lista_invertida, aux_inv, cj_dados);
-	}
-	else{
-		RemoveRegInv(aux_sec->lista_invertida, aux_inv, cj_dados);
-	}
-	
+	/* Pegar informaçẽos do arquivo. */
 	char arq[15];
   	if(cj_dados == 1){
 		strcpy(arq, "indsec1.ind");
@@ -240,6 +240,34 @@ void RemoverRegSec(LstIndSec* lista, char* chave, char* curso, int NRR, int cj_d
 	else{
 		strcpy(arq, "indsec2.ind");
 	}
-	FILE* fp = fopen(arq, "w+");
+	FILE* fp = fopen(arq, "r");
+
+	printf("Arquivo de indices secundarios antes da exclusão:\n");
+	ImprimirArquivo(fp);
+	fclose(fp);
+
+	/* Achar posição do curso que contém o registro. */
+	for(aux_sec = lista->cabeca; !strcmp(curso, aux_sec->chave); aux_sec = aux_sec->proximo);
+
+	/* Achar registro na lista de invertidas. */
+	for(aux_inv = aux_sec->lista_invertida->cabeca; !strcmp(aux_inv->chave, curso); aux_inv = aux_inv->proximo);
+	
+	/* Remover registro da lista de invertidas. */
+	if(aux_inv == aux_sec->lista_invertida->cabeca){
+		aux_sec->lista_invertida->cabeca = RemoveRegInv(aux_sec->lista_invertida, aux_inv, cj_dados);
+	}
+	else{
+		RemoveRegInv(aux_sec->lista_invertida, aux_inv, cj_dados);
+	}
+	
+	/* Reescrever arquivo de indices secundarios. */
+	fp = fopen(arq, "w+");
 	EscreveListaSec(fp, lista);
+	fclose(fp);
+
+	printf("\nArquivo de indices secundarios depois da exclusão:\n");
+	fp = fopen(arq, "w+");
+	EscreveListaSec(fp, lista);
+	ImprimirArquivo(fp);
+	fclose(fp);
 }
