@@ -9,7 +9,7 @@ typedef struct no_ped{
 	struct no_ped* anterior;
 }NoPED;
 
-typedef struct lst_prim_inv{
+typedef struct tPed{
 	NoPED* cabeca;
 }TipoPED;
 

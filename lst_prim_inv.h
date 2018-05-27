@@ -25,10 +25,10 @@ LstIP* IniciarLstIP(void);
 NoIP* AddLstIP(NoIP* pai, char* chave, int NRR);
 
 /* Remover nó da lista. */
-void RemoverNoLstIP(NoIP* no);
+void RemoverNoLstIP(LstIP *lista, NoIP* no);
 
 /* Eliminar recursivamente todos os itens da lista. */
-void EliminarNosLstIP(NoIP* no);
+void EliminarNosLstIP(LstIP *lista, NoIP* no);
 
 /* Liberar a lista. */
 void LiberaLstIP(LstIP *lista);
