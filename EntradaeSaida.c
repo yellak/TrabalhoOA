@@ -246,6 +246,7 @@ TipoPED* CriaPED(int cj_dados){
 		else{
 			fseek(fp, REG_DADOS -1, SEEK_CUR);
 		}
+		NRR++;
 		temp = ftell(fp);
 		fgetc(fp);
 	} /* while */
