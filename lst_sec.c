@@ -209,7 +209,9 @@ void IncluirRegSec(LstIndSec* lista, char* chave, char* curso, int NRR, int cj_d
 	printf("Arquivo de indices secundarios antes da inclusão:\n");
 	ImprimirLstSec(lista);
 
-	IncluirRegInv(aux->lista_invertida, chave, NRR, curso);
+	IncluirRegInv(aux->lista_invertida, chave, NRR, curso, cj_dados);
+
+	OrganizarPonteirosListas(cj_dados, lista);
 
 	OrdenarLstSec(lista);
 
