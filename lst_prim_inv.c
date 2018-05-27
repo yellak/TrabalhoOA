@@ -50,7 +50,7 @@ void LiberaLstIP(LstIP *lista){
 		return;
 	}
 
-	RemoverNoLstIP(no);
+	EliminarNosLstIP(no);
 	free(lista);
 }
 
@@ -158,7 +158,7 @@ void MergeListas(LstIP *lista1, LstIP *lista2){
 	fclose(saida);
 }
 
-void RemoveRegIP(FILE* arquivo, int NRR){
+void RemoveRegistro(FILE* arquivo, int NRR){
   fseek(arquivo, NRR*REGIP, SEEK_SET);
   fprintf(arquivo, "*");
 }
@@ -175,4 +175,12 @@ NoIP* BuscaChaveIP(LstIP* lista, char chave[]){
   } /* while */
 
   return NULL;
+}
+
+void RemoveRegIP(){
+
+}
+
+void IncluirRegIP(){
+
 }

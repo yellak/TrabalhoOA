@@ -50,7 +50,7 @@ void MergeListas(LstIP *lista1, LstIP *lista2);
 
 /* Função que remove um registro num arquivi de lista invertida
 ** de chave primária */
-void RemoveRegIP(FILE* arquivo, int NRR);
+void RemoveRegistro(FILE* arquivo, int NRR);
 
 /* Função que busca uma chave em uma lista invertida ou de chaves
 ** primárias retornando um ponteiro para o nó encontrado ou NULL
