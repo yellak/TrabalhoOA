@@ -323,7 +323,7 @@ void IncluirRegistro(TipoPED *pilha, LstIP *prim, LstIndSec *sec, int cj_dados){
 	reg.curso = (char*) malloc(sizeof(char)*9);
 	reg.nome = (char*) malloc(sizeof(char)*41);
 	reg.op = (char*) malloc(sizeof(char)*4);
-	reg.turma = (char*) malloc(sizeof(char)*3);
+	reg.turma = (char*) malloc(sizeof(char)*2);
 
 	/* Ler informações do novo registro. */
 	/* LEr informações da matricula. */
@@ -354,11 +354,11 @@ void IncluirRegistro(TipoPED *pilha, LstIP *prim, LstIndSec *sec, int cj_dados){
 	/* Ler informações da turma. */
 	printf("Digite a turma do registro a ser inserido:\n");
 	setbuf(stdin, NULL);
-	fgets(reg.turma, sizeof(char)*3, stdin);
+	fgets(reg.turma, sizeof(char)*2, stdin);
 	setbuf(stdin, NULL);
-	reg.turma = AjustarString(reg.turma, 3);
-	reg.turma[2] = '\n';
-	reg.turma[3] = '\0';
+	reg.turma = AjustarString(reg.turma, 2);
+	reg.turma[1] = '\n';
+	reg.turma[2] = '\0';
 
 	char *concatenado = Concatena(reg.nome, reg.matricula); 
 	
