@@ -273,3 +273,15 @@ void RemoverRegSec(LstIndSec* lista, char* chave, char* curso, int NRR, int cj_d
 	ImprimirArquivo(fp);
 	fclose(fp);
 }
+
+void CorrigeNRRInv(LstIndSec* sec, int NRR){
+	NoSec* aux_sec;
+	NoIP* aux_inv;
+	for(aux_sec = sec->cabeca; aux != NULL; aux_sec = aux_sec->proximo){
+		for(aux_inv = aux_sec->lista_invertida->cabeca; aux_inv != NULL; aux_inv = aux_inv->proximo){
+			if(aux_inv->NRR > NRR){
+				aux_inv->NRR -= 1;
+			}
+		}
+	}
+}
