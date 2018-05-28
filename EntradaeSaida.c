@@ -69,11 +69,15 @@ void LerLista(int conjunto_dados, LstIP* primaria, LstIndSec* secundaria){
 
 	/* Definir nome do arquivo a ser aberto. */
 	char nome_arq[11];
+	char arq_inv[15];
+	FILE* fp_inv;
 	if(conjunto_dados == 1){
 		strcpy(nome_arq, "lista1.txt");
+		strcpy(arq_inv, "lst_inv1.txt");
 		remove("lst_inv1.txt");
 	}
 	else if(conjunto_dados == 2){
+		strcpy(arq_inv, "lst_inv2.txt");
 		strcpy(nome_arq, "lista2.txt");
 		remove("lst_inv2.txt");
 	}
@@ -121,6 +125,11 @@ void LerLista(int conjunto_dados, LstIP* primaria, LstIndSec* secundaria){
 				}
 			}
 			InserirListaInvertida(secundaria, registro.curso, concatenado, NRR, conjunto_dados);
+		}
+		else if(concatenado[0] == '*'){
+			fp_inv = fopen(arq_inv, "a");
+			fprintf(fp_inv, "%s %3d\n", concatenado, -1);
+			fclose(fp_inv);
 		}
 		NRR++;
 		free(concatenado);
