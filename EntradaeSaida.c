@@ -49,10 +49,11 @@ void LerRegistro(TipoReg *registro, FILE *fp){
 	}
 
 	/* Ler curso. */
-	for(aux = 0; aux < 9; aux++){
+	for(aux = 0; aux < 8; aux++){
 		registro->curso[aux] = fgetc(fp);
 	}
-	registro->curso[9] = '\0';
+	fgetc(fp);
+	registro->curso[8] = '\0';
 	/* Pegar espaços e '\n'. */
 	for(aux = 0; aux < 3; aux++){
 		fgetc(fp);
