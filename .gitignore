@@ -57,3 +57,7 @@ dkms.conf
 
 # Executable
 main
+
+# Arquivos de indices e de texto
+*.txt
+*.ind
