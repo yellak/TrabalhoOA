@@ -165,6 +165,7 @@ void OrganizarPonteirosListas(int conjunto_dados, LstIndSec *lista){
 	FILE *arq_inv = fopen(nome_arq_inv, "r+");
 
 	for(aux_sec = lista->cabeca; aux_sec != NULL; aux_sec = aux_sec->proximo){
+		OrdenarLstIP(aux_sec->lista_invertida);
 		for(aux_inv = aux_sec->lista_invertida->cabeca; aux_inv !=NULL; aux_inv = aux_inv->proximo){
 			if(aux_inv->proximo != NULL){
 				NRR = aux_inv->proximo->NRR;
