@@ -33,6 +33,7 @@ int main(){
   LstIndSec *sec = IniciaLstIndSec();
   LerLista(conjunto_dados, prim, sec);
   OrdenarLstIP(prim);
+  OrganizarPonteirosListas(conjunto_dados, sec);
   OrdenarLstSec(sec);
   FILE *fp = fopen(arq_prim, "w+");
   EscreveListaPrim(fp, prim);
