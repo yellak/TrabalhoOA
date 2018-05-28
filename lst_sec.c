@@ -248,7 +248,7 @@ void RemoverRegSec(LstIndSec* lista, char* chave, char* curso, int NRR, int cj_d
 	fclose(fp);
 
 	/* Achar posição do curso que contém o registro. */
-	for(aux_sec = lista->cabeca; !strcmp(curso, aux_sec->chave); aux_sec = aux_sec->proximo);
+	for(aux_sec = lista->cabeca; strcmp(curso, aux_sec->chave); aux_sec = aux_sec->proximo);
 
 	/* Achar registro na lista de invertidas. */
 	for(aux_inv = aux_sec->lista_invertida->cabeca; !strcmp(aux_inv->chave, curso); aux_inv = aux_inv->proximo);
