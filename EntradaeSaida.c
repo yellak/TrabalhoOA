@@ -211,13 +211,13 @@ int IncluirRegDados(TipoReg* reg, int cj_dados, TipoPED* ped){
     NRR = PegarTopoPED(ped);
     fp = fopen(arq, "r+");
     fseek(fp, NRR*REG_DADOS, SEEK_SET);
+    fprintf(fp, "%s %s %s %s %s", reg->matricula, reg->nome, reg->op, reg->curso, reg->turma);
   }
   else{
     fp = fopen(arq, "a");
     NRR = (int) ftell(fp)/REG_DADOS;
+    fprintf(fp, "%s %s %s %s %s\n", reg->matricula, reg->nome, reg->op, reg->curso, reg->turma);
   }
-
-  fprintf(fp, "%s %s %s %s %s", reg->matricula, reg->nome, reg->op, reg->curso, reg->turma);
 
   fclose(fp);
 
