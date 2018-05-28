@@ -51,7 +51,4 @@ void IncluirRegSec(LstIndSec* lista, char* chave, char* curso, int NRR, int cj_d
 /* Remover registro da lista de indices secundarios. */
 void RemoverRegSec(LstIndSec* lista, char* chave, char* curso, int NRR, int cj_dados);
 
-/* Função que corrige os NRR's da lista invertida */
-void CorrigeNRRInv(LstIndSec* sec, int NRR);
-
 #endif
