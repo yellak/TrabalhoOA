@@ -217,7 +217,7 @@ int IncluirRegDados(TipoReg* reg, int cj_dados, TipoPED* ped){
   }
   else{
     fp = fopen(arq, "a");
-    NRR = (int) ftell(fp)/REG_DADOS;
+    NRR = (int) (ftell(fp)+1)/REG_DADOS;
     fprintf(fp, "%s %s %s %s %s\n", reg->matricula, reg->nome, reg->op, reg->curso, reg->turma);
   }
 
