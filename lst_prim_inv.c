@@ -220,7 +220,7 @@ void IncluirRegPrim(LstIP* lista, char* chave, int NRR, int cj_dados){
 	/* Pegar informações do arquivo. */
 	char arq[15];
   	if(cj_dados == 1){
-    	strcpy(arq, "indprim1.ind");
+		strcpy(arq, "indprim1.ind");
 	}
 	else{
 		strcpy(arq, "indprim2.ind");
@@ -260,7 +260,7 @@ void IncluirRegInv(LstIP* lista, char* chave, int NRR, int cj_dados){
 	/* Pegar informaçẽos dobre o arquivo. */
 	char arq[15];
   	if(cj_dados == 1){
-    	strcpy(arq, "lst_inv1.txt");
+		strcpy(arq, "lst_inv1.txt");
 	}
 	else{
 		strcpy(arq, "lst_inv2.txt");
@@ -276,7 +276,8 @@ void IncluirRegInv(LstIP* lista, char* chave, int NRR, int cj_dados){
 	for(aux = lista->cabeca; aux != NULL; pai = aux, aux = aux->proximo);
 
 	/* Adicionar novo registro na lista. */
-	pai->proximo = AddLstIP(pai, chave, ftell(fp)/35);
+	//pai->proximo = AddLstIP(pai, chave, ftell(fp)/35);
+	pai->proximo = AddLstIP(pai, chave, NRR);
 
 	OrdenarLstIP(lista);
 
