@@ -298,10 +298,10 @@ char* AjustarString(char *string, int tamanho){
 	int i, achou_0;
 
 	/* Percorrer toda a string, incluindo espaços antes do '\0'. */
-	for(i=0, achou_0 = 0; i != tamanho-1; i++){
+	for(i=0, achou_0 = 0; i != tamanho; i++){
 		if(string[i] == '\0'){
 			achou_0 = 1;
-			string[i-1] = ' ';
+			if(string[i-1] == '\n') string[i-1] = ' ';
 		}
 		if(achou_0){
 			string[i] = ' ';
