@@ -199,7 +199,7 @@ void IncluirRegSec(LstIndSec* lista, char* chave, char* curso, int NRR, int cj_d
 		}
 	}
 	else{
-		for(aux = lista->cabeca; !strcmp(aux->chave, curso); aux = aux->proximo);
+		for(aux = lista->cabeca; strcmp(aux->chave, curso) != 0; aux = aux->proximo);
 	}
 
 	
