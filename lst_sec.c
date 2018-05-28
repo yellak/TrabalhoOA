@@ -186,16 +186,17 @@ void IncluirRegSec(LstIndSec* lista, char* chave, char* curso, int NRR, int cj_d
 
 	/* Achar curso na lista, ou criar se não existir. */
 	if(!CursoExiste(lista, curso)){
-		for(aux = lista->cabeca; aux != NULL; aux = aux->proximo){
-			pai = aux;
-		}
-		if(aux == NULL){
-			AddNoSec(NULL, curso);
-			aux = lista->cabeca;
+		for(aux = lista->cabeca; aux != NULL; pai = aux, aux = aux->proximo);
+
+		if(pai == NULL){
+			aux = AddNoSec(NULL, curso);
+			lista->cabeca = aux;
+			aux->lista_invertida = IniciarLstIP();
 		}
 		else{
 			pai->proximo = AddNoSec(pai, curso);
 			aux = pai->proximo;
+			aux->lista_invertida = IniciarLstIP();
 		}
 	}
 	else{

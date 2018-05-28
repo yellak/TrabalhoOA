@@ -276,8 +276,12 @@ void IncluirRegInv(LstIP* lista, char* chave, int NRR, int cj_dados){
 	for(aux = lista->cabeca; aux != NULL; pai = aux, aux = aux->proximo);
 
 	/* Adicionar novo registro na lista. */
-	//pai->proximo = AddLstIP(pai, chave, ftell(fp)/35);
-	pai->proximo = AddLstIP(pai, chave, NRR);
+	if(pai == NULL){
+		aux = AddLstIP(NULL, chave, NRR);
+		lista->cabeca = aux;
+	}
+	else
+		pai->proximo = AddLstIP(pai, chave, NRR);
 
 	OrdenarLstIP(lista);
 
