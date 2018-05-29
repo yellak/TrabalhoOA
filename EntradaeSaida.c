@@ -429,7 +429,7 @@ void AtualizarRegistro(int cj_dados, LstIndSec *sec, LstIP *prim){
 		printf("(%d) - %s\n", i, aux_inv->chave);
 	}
 	do{
-		printf("Escolha uma das opções: ");
+		printf("Escolha uma das opções:\n");
 		scanf("%d", &opcao_registro);
 	}while(opcao_registro < 0 || opcao_registro > i);
 
@@ -446,7 +446,7 @@ void AtualizarRegistro(int cj_dados, LstIndSec *sec, LstIP *prim){
 	printf("3. Opção\n");
 	printf("4. Turma\n");
 	do{
-		printf("Escolha uma: ");
+		printf("Escolha uma:\n");
 		scanf("%d", &op_alterar);
 	}while(op_alterar < 1 || op_alterar > 4);
 
@@ -455,18 +455,21 @@ void AtualizarRegistro(int cj_dados, LstIndSec *sec, LstIP *prim){
 	novo_reg.curso = (char*) malloc(sizeof(char)*9);
 	novo_reg.nome = (char*) malloc(sizeof(char)*41);
 	novo_reg.op = (char*) malloc(sizeof(char)*4);
-	novo_reg.turma = (char*) malloc(sizeof(char)*2);
+	novo_reg.turma = (char*) malloc(sizeof(char)*4);
 
 	FILE* fp = fopen(arq, "r+");
 	if(op_alterar == 1){
 		/* Adquirindo a matrícula */
 		printf("Digite a matrícula do aluno:\n");
+		setbuf(stdin, NULL);
 		fgets(novo_reg.matricula, sizeof(novo_reg.matricula), stdin);
+		getchar();
 		setbuf(stdin, NULL);
 		novo_reg.matricula = AjustarString(novo_reg.matricula, 7);
 
 		/* Adquirindo o nome */
 		printf("Digite o nome do aluno:\n");
+		setbuf(stdin, NULL);
 		fgets(novo_reg.nome, sizeof(novo_reg.nome), stdin);
 		setbuf(stdin, NULL);
 		novo_reg.nome = AjustarString(novo_reg.nome, 41);
@@ -481,6 +484,7 @@ void AtualizarRegistro(int cj_dados, LstIndSec *sec, LstIP *prim){
 	else if( op_alterar == 2){
 		/* Adquirindo o nome */
 		printf("Digite o nome do curso:\n");
+		setbuf(stdin, NULL);
 		fgets(novo_reg.curso, sizeof(novo_reg.curso), stdin);
 		setbuf(stdin, NULL);
 		novo_reg.curso = AjustarString(novo_reg.curso, 9);
@@ -495,6 +499,7 @@ void AtualizarRegistro(int cj_dados, LstIndSec *sec, LstIP *prim){
 	else if(op_alterar == 3){
 		/* Adquirindo a opção */
 		printf("Digite a opção do aluno\n:");
+		setbuf(stdin, NULL);
 		fgets(novo_reg.op, sizeof(novo_reg.op), stdin);
 		setbuf(stdin, NULL);
 		novo_reg.op = AjustarString(novo_reg.op, 4);
@@ -506,11 +511,15 @@ void AtualizarRegistro(int cj_dados, LstIndSec *sec, LstIP *prim){
 	else if(op_alterar == 4){
 		/* Adquirindo a turma */
 		printf("Digite a turma do aluno\n:");
+		setbuf(stdin, NULL);
 		fgets(novo_reg.turma, sizeof(novo_reg.turma), stdin);
 		setbuf(stdin, NULL);
-		novo_reg.turma = AjustarString(novo_reg.turma, 2);
+		novo_reg.turma = AjustarString(novo_reg.turma, 4);
 
 		/* Arrumando turma no arquivo */
+		novo_reg.turma[1] = '\r';
+		novo_reg.turma[2] = '\n';
+		novo_reg.turma[3] = '\0';
 		fseek(fp, aux_prim->NRR*REG_DADOS + 61, SEEK_SET);
 		fprintf(fp, "%s", novo_reg.turma);
 	}
