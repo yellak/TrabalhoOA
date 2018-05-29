@@ -205,7 +205,7 @@ void IncluirRegSec(LstIndSec* lista, char* chave, char* curso, int NRR, int cj_d
 
 	
 	/* Imprimir arquivo antes da inclusão. */
-	printf("Arquivo de indices secundarios antes da inclusão:\n");
+	printf("\nArquivo de indices secundarios antes da inclusão:\n\n");
 	ImprimirArquivo(fp);
 	fclose(fp);
 
@@ -216,7 +216,7 @@ void IncluirRegSec(LstIndSec* lista, char* chave, char* curso, int NRR, int cj_d
 	OrganizarPonteirosListas(cj_dados, lista);
 	OrdenarLstSec(lista);
 
-	printf("\nArquivo de indices secundarios depois da inclusão:\n");
+	printf("\nArquivo de indices secundarios depois da inclusão:\n\n");
 	fp = fopen(arq, "w+");
 	EscreveListaSec(fp, lista);
 	rewind(fp);
@@ -244,7 +244,7 @@ void RemoverRegSec(LstIndSec* lista, char* chave, char* curso, int NRR, int cj_d
 	}
 	FILE* fp = fopen(arq, "r");
 
-	printf("Arquivo de indices secundarios antes da exclusão:\n");
+	printf("\nArquivo de indices secundarios antes da exclusão:\n\n");
 	ImprimirArquivo(fp);
 	fclose(fp);
 
@@ -268,7 +268,7 @@ void RemoverRegSec(LstIndSec* lista, char* chave, char* curso, int NRR, int cj_d
 	fclose(fp);
 	OrganizarPonteirosListas(cj_dados, lista);
 
-	printf("\nArquivo de indices secundarios depois da exclusão:\n");
+	printf("\nArquivo de indices secundarios depois da exclusão:\n\n");
 	fp = fopen(arq, "w+");
 	EscreveListaSec(fp, lista);
 	rewind(fp);
