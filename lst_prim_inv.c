@@ -173,31 +173,31 @@ void RemoveRegistro(FILE* arquivo, int NRR){
 }
   
 NoIP* BuscaChaveIP(LstIP* lista, char chave[]){
-  NoIP* aux = lista->cabeca;
-  while(aux != NULL){
-    if(!strcmp(aux->chave, chave)){
-      return aux;
-    }
-    else{
-      aux = aux->proximo;
-    }
-  } /* while */
+	NoIP* aux = lista->cabeca;
+	while(aux != NULL){
+		if(!strcmp(aux->chave, chave)){
+			return aux;
+		}
+		else{
+			aux = aux->proximo;
+		}
+	} /* while */
 
-  return NULL;
+	return NULL;
 }
 
 void RemoveRegPrim(LstIP *lista, NoIP *no, int cj_dados){
 	/* Pegar informações sobre o arquivo. */
 	char arq[15];
   	if(cj_dados == 1){
-    	strcpy(arq, "indprim1.ind");
+		strcpy(arq, "indprim1.ind");
 	}
 	else{
 		strcpy(arq, "indprim2.ind");
 	}
 	FILE* fp = fopen(arq, "r");
 
-	printf("Arquivo de indices primários antes da exclusão:\n");
+	printf("\nArquivo de indices primários antes da exclusão:\n\n");
 	ImprimirArquivo(fp);
 
 	fclose(fp);
@@ -207,7 +207,7 @@ void RemoveRegPrim(LstIP *lista, NoIP *no, int cj_dados){
 	fp = fopen(arq, "w+");
 	EscreveListaPrim(fp, lista);
 
-	printf("Arquivo de indices primários depois da exclusão:\n");
+	printf("\nArquivo de indices primários depois da exclusão:\n\n");
 	rewind(fp);
 	ImprimirArquivo(fp);
 
@@ -229,7 +229,7 @@ void IncluirRegPrim(LstIP* lista, char* chave, int NRR, int cj_dados){
 	FILE* fp = fopen(arq, "r");
 
 	/* Imprimir arquivo antes da inclusão. */
-	printf("Arquivo de indices primários antes da inclusão:\n");
+	printf("\nArquivo de indices primários antes da inclusão:\n\n");
 	ImprimirArquivo(fp);
 	fclose(fp);
 
@@ -249,7 +249,7 @@ void IncluirRegPrim(LstIP* lista, char* chave, int NRR, int cj_dados){
 
 	/* Imprimir arquivo depois da modificação. */
 	fp = fopen(arq, "r");
-	printf("\nArquivo de indices primários depois da inclusão:\n");
+	printf("\nArquivo de indices primários depois da inclusão:\n\n");
 	ImprimirArquivo(fp);
 	fclose(fp);
 }
@@ -269,7 +269,7 @@ void IncluirRegInv(LstIP* lista, char* chave, int NRR, int cj_dados){
 	FILE* fp = fopen(arq, "r");
 
 	/* Imprimir arquivo antes da inclusão. */
-	printf("Arquivo de indices invertidos antes da inclusão:\n");
+	printf("\nArquivo de indices invertidos antes da inclusão:\n\n");
 	ImprimirArquivo(fp);
 	fclose(fp);
 
@@ -303,7 +303,7 @@ NoIP* RemoveRegInv(LstIP *lista, NoIP *no, int cj_dados){
 	}
 	FILE* fp = fopen(arq, "r+");
 
-	printf("Arquivo de indices invertidos antes da exclusão:\n");
+	printf("\nArquivo de indices invertidos antes da exclusão:\n\n");
 	ImprimirArquivo(fp);
 
 	int NRR = no->NRR;
@@ -315,7 +315,7 @@ NoIP* RemoveRegInv(LstIP *lista, NoIP *no, int cj_dados){
 	fseek(fp, 35*NRR + 31, SEEK_SET);
 	fprintf(fp, "%3d", -1);
 
-	printf("Arquivo de indices invertidos depois da exclusão:\n");
+	printf("\nArquivo de indices invertidos depois da exclusão:\n\n");
 	rewind(fp);
 	ImprimirArquivo(fp);
 
