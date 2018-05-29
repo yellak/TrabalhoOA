@@ -98,7 +98,6 @@ void LerLista(int conjunto_dados, LstIP* primaria, LstIndSec* secundaria){
 	NoSec *atual_sec;
 	char *concatenado;
 	int NRR = 0;
-	int long temp = ftell(fp);
 
 	while(!feof(fp)){
 		fseek(fp, NRR*REG_DADOS, SEEK_SET);
@@ -133,7 +132,6 @@ void LerLista(int conjunto_dados, LstIP* primaria, LstIndSec* secundaria){
 		}
 		NRR++;
 		free(concatenado);
-		temp = ftell(fp);
 		fgetc(fp);
 	}
 
@@ -417,7 +415,7 @@ void AtualizarRegistro(int cj_dados, LstIndSec *sec, LstIP *prim){
 		printf("(%d) - %s\n", i, aux_sec->chave);
 	}
 	do{
-		printf("Escolha uma das opções: ");
+		printf("Escolha uma das opções:\n");
 		scanf("%d", &opcao_curso);
 	}while(opcao_curso < 0 || opcao_curso > i);
 	printf("\n");
@@ -475,7 +473,6 @@ void AtualizarRegistro(int cj_dados, LstIndSec *sec, LstIP *prim){
 		novo_reg.nome = AjustarString(novo_reg.nome, 41);
 
 		/* Arrumando matrícula e nome no arquivo */
-		int IncluirRegDados(TipoReg* reg, int cj_dados, TipoPED* ped);
 		fseek(fp, aux_prim->NRR*REG_DADOS, SEEK_SET);
 		fprintf(fp, "%s %s", novo_reg.matricula, novo_reg.nome);
 			
