@@ -232,7 +232,7 @@ int IncluirRegDados(TipoReg* reg, int cj_dados, TipoPED* ped){
   }
   else{
     fp = fopen(arq, "a");
-    NRR = (int) (ftell(fp)+1)/REG_DADOS;
+    NRR = (int) (ftell(fp))/REG_DADOS;
     fprintf(fp, "%s %s %s %s %s", reg->matricula, reg->nome, reg->op, reg->curso, reg->turma);
   }
 
@@ -462,7 +462,7 @@ void AtualizarRegistro(int cj_dados, LstIndSec *sec, LstIP *prim){
 		/* Adquirindo a matrícula */
 		printf("Digite a matrícula do aluno:\n");
 		setbuf(stdin, NULL);
-		fgets(novo_reg.matricula, sizeof(novo_reg.matricula), stdin);
+		fgets(novo_reg.matricula, sizeof(char)*7, stdin);
 		getchar();
 		setbuf(stdin, NULL);
 		novo_reg.matricula = AjustarString(novo_reg.matricula, 7);
@@ -470,11 +470,12 @@ void AtualizarRegistro(int cj_dados, LstIndSec *sec, LstIP *prim){
 		/* Adquirindo o nome */
 		printf("Digite o nome do aluno:\n");
 		setbuf(stdin, NULL);
-		fgets(novo_reg.nome, sizeof(novo_reg.nome), stdin);
+		fgets(novo_reg.nome, sizeof(char)*41, stdin);
 		setbuf(stdin, NULL);
 		novo_reg.nome = AjustarString(novo_reg.nome, 41);
 
 		/* Arrumando matrícula e nome no arquivo */
+		int IncluirRegDados(TipoReg* reg, int cj_dados, TipoPED* ped);
 		fseek(fp, aux_prim->NRR*REG_DADOS, SEEK_SET);
 		fprintf(fp, "%s %s", novo_reg.matricula, novo_reg.nome);
 			
@@ -485,7 +486,7 @@ void AtualizarRegistro(int cj_dados, LstIndSec *sec, LstIP *prim){
 		/* Adquirindo o nome */
 		printf("Digite o nome do curso:\n");
 		setbuf(stdin, NULL);
-		fgets(novo_reg.curso, sizeof(novo_reg.curso), stdin);
+		fgets(novo_reg.curso, sizeof(char)*9, stdin);
 		setbuf(stdin, NULL);
 		novo_reg.curso = AjustarString(novo_reg.curso, 9);
 
@@ -500,7 +501,7 @@ void AtualizarRegistro(int cj_dados, LstIndSec *sec, LstIP *prim){
 		/* Adquirindo a opção */
 		printf("Digite a opção do aluno\n:");
 		setbuf(stdin, NULL);
-		fgets(novo_reg.op, sizeof(novo_reg.op), stdin);
+		fgets(novo_reg.op, sizeof(char)*4, stdin);
 		setbuf(stdin, NULL);
 		novo_reg.op = AjustarString(novo_reg.op, 4);
 
@@ -512,7 +513,7 @@ void AtualizarRegistro(int cj_dados, LstIndSec *sec, LstIP *prim){
 		/* Adquirindo a turma */
 		printf("Digite a turma do aluno\n:");
 		setbuf(stdin, NULL);
-		fgets(novo_reg.turma, sizeof(novo_reg.turma), stdin);
+		fgets(novo_reg.turma, sizeof(char)*4, stdin);
 		setbuf(stdin, NULL);
 		novo_reg.turma = AjustarString(novo_reg.turma, 4);
 
