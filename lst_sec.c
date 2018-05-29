@@ -219,6 +219,7 @@ void IncluirRegSec(LstIndSec* lista, char* chave, char* curso, int NRR, int cj_d
 	printf("\nArquivo de indices secundarios depois da inclusão:\n");
 	fp = fopen(arq, "w+");
 	EscreveListaSec(fp, lista);
+	rewind(fp);
 	ImprimirArquivo(fp);
 	fclose(fp);
 
@@ -270,6 +271,7 @@ void RemoverRegSec(LstIndSec* lista, char* chave, char* curso, int NRR, int cj_d
 	printf("\nArquivo de indices secundarios depois da exclusão:\n");
 	fp = fopen(arq, "w+");
 	EscreveListaSec(fp, lista);
+	rewind(fp);
 	ImprimirArquivo(fp);
 	fclose(fp);
 }

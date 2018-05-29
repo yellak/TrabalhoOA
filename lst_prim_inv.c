@@ -315,6 +315,7 @@ NoIP* RemoveRegInv(LstIP *lista, NoIP *no, int cj_dados){
 	fprintf(fp, "%3d", -1);
 
 	printf("Arquivo de indices invertidos depois da exclusão:\n");
+	rewind(fp);
 	ImprimirArquivo(fp);
 
 	fclose(fp);	
