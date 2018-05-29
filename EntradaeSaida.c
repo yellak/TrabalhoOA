@@ -456,6 +456,9 @@ void AtualizarRegistro(int cj_dados, LstIndSec *sec, LstIP *prim){
 	novo_reg.turma = (char*) malloc(sizeof(char)*4);
 
 	FILE* fp = fopen(arq, "r+");
+
+	printf("\nO registro escolhido foi:\n");
+	printf("%s\n\n", aux_prim->chave);
 	if(op_alterar == 1){
 		/* Adquirindo a matrícula */
 		printf("Digite a matrícula do aluno:\n");
@@ -481,7 +484,7 @@ void AtualizarRegistro(int cj_dados, LstIndSec *sec, LstIP *prim){
 	}
 	else if( op_alterar == 2){
 		/* Adquirindo o nome */
-		printf("Digite o nome do curso:\n");
+		printf("Digite o novo curso:\n");
 		setbuf(stdin, NULL);
 		fgets(novo_reg.curso, sizeof(char)*9, stdin);
 		setbuf(stdin, NULL);
