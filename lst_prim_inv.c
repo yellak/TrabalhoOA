@@ -161,6 +161,8 @@ void MergeListas(LstIP *lista1, LstIP *lista2){
 		}
 	}
 	printf("Merge realizado. Arquivo 'lista12.txt' criado.\n");
+	rewind(saida);
+	ImprimirArquivo(saida);
 
 	free(maxima);
 	fclose(arq1);
