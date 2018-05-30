@@ -39,20 +39,20 @@
 
 ## Arquivos produzidos
 
-   	> insprimN.ind
+   	-> insprimN.ind
 
 	Arquivo com os índices primários da lista 'N' (1 ou 2)
 
-	> indsecN.ind
+	-> indsecN.ind
 
 	Arquivo com os índices secundários da lista 'N'
 
-	> lista12.txt
+	-> lista12.txt
 
 	Arquivo com o resultado do merging da lista 1 com a
 	lista 2
 
-	> lst_invN.txt
+	-> lst_invN.txt
 
 	Arquivo com as listas invertidas das chaves secundárias
 	da lista 'N'
@@ -60,25 +60,25 @@
 
 ## Módulos
 
-	#### lst_prim_inv.c
+	-> lst_prim_inv.c
 
 	Contém as funções de manipulação para lista primária e
 	invertida.
 
-	#### lst_sec.c
+	-> lst_sec.c
 
 	Contém as funções de manipulação para listas secundárias
 
-	#### EntradaeSaida.c
+	-> EntradaeSaida.c
 
 	Contém principalmente funções de manipulação de arquivos
 
-	#### PED.c
+	-> PED.c
 
 	Contém funções de manipulação para pilha de espaços
 	disponíveis
 
-	#### main.c
+	-> main.c
 
 	Contém os procedimentos principais do software
 
