@@ -3,7 +3,7 @@
 
 ## Alunos
 	Kálley Wilkerson R. Alexandre - 170038050
-	André Macedo
+	André Macedo Prado Valle - 170005950
 
 
 ## Observações
@@ -11,7 +11,7 @@
 	Os arquivos que foram utilizados para a criação deste
 	programa foram provavelmente criados no sistema
 	operacional Windows pois uma nova linha é representada
-	por '\r\n' e não somente por '\n' como é no Linux, dessa
+	por '\r\n' e não somente por '\n', como é no Linux, dessa
 	forma os arquivos fornecidos para utilização deste
 	software devem ter a mesma precedência dos arquivos
 	fornecidos para criação deste programa (feitos dentro
@@ -19,7 +19,7 @@
 
 	Os arquivos onde estão armazenados os dados estão salvos
 	como 'lista1.txt' e 'lista2.txt', se outro arquivo for
-	utilizado além de obedecer o padrão citado acima, também
+	utilizado, além de obedecer o padrão citado acima, também
 	deverá ser renomeado para um desses nomes.
 
 	Para garantir mudanças feitas em um arquivo, re-execute
@@ -39,23 +39,32 @@
 
 ## Arquivos produzidos
 
-   	-> insprimN.ind
+   	-> indprimN.ind
 
 	Arquivo com os índices primários da lista 'N' (1 ou 2)
+	Contém duas colunas de informação. A primeira com a chave primária
+	(Matrícula e nome concatenados) e na segunda o número relativo do
+	registro (NRR) em relação ao arquivo de dados.
 
 	-> indsecN.ind
 
 	Arquivo com os índices secundários da lista 'N'
-
-	-> lista12.txt
-
-	Arquivo com o resultado do merging da lista 1 com a
-	lista 2
+	Contém duas colunas de informação. A primeira com o curso e a segunda
+	com a NRR para o primeiro registro do curso no arquivo de de listas 
+	invertidas.
 
 	-> lst_invN.txt
 
 	Arquivo com as listas invertidas das chaves secundárias
 	da lista 'N'
+	Contém duas colunas de informação. Na primeira se encontra a chave
+	primária e na segunda o NRR para o próximo registro na lista invertida
+	relacionado a um curso.
+
+	-> lista12.txt
+
+	Arquivo com o resultado da operação de merge da lista 1 com a
+	lista 2.
 
 
 ## Módulos
